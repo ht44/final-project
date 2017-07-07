@@ -126,11 +126,37 @@ class TestModel(object):
         expected = np.zeros((fixture.commodity_count, fixture.industry_count))
         np.testing.assert_array_equal(fixture.econ.cxi_null_matrix, expected)
 
-    def test_define_tax_matrix(self, fixture):
+    def test_tax_matrix(self, fixture):
+
         mock_args = [(0, 0.5), (1, 0.2), (2, 0.7)]
+        fixture.econ.model(mock_args)
+
         expected = np.zeros((fixture.commodity_count, fixture.industry_count))
         for arg in mock_args:
             commodity, rate = arg
             expected[commodity].fill(rate)
-        np.testing.assert_array_equal(fixture.econ.define_tax_matrix(*mock_args),
-                                      expected)
+        np.testing.assert_array_equal(fixture.econ.tax_matrix, expected)
+
+    def test_tax_coefficient(self, fixture):
+
+        mock_args = [(0, 0.5), (1, 0.2), (2, 0.7)]
+        fixture.econ.model(mock_args)
+
+        assert len(fixture.econ.tax_coefficient) == fixture.commodity_count
+
+    def test_derive_rel_unit_price(self, fixture):
+
+        mock_args = [(0, 0.5), (1, 0.2), (2, 0.7)]
+        fixture.econ.model(mock_args)
+        rel_unit_price = fixture.econ.rel_unit_price
+
+        assert len(rel_unit_price) == fixture.commodity_count
+
+        taxed_coefficient = np.linalg.lstsq(fixture.econ.leontief_inverse_trans, rel_unit_price)
+        value_coefficient = np.subtract(taxed_coefficient, fixture.econ.tax_coefficient)
+
+        asserted = np.dot(fixture.econ.leontief_inverse_trans, value_coefficient)
+        expected = np.ones(fixture.commodity_count)
+        np.testing.assert_almost_equal(asserted,
+                                       expected,
+                                       decimal=1)

@@ -55,7 +55,7 @@ def fixture(request):
         def get_econ(self):
             data = Dataset(self.level, self.year)
             econ = Leontief(data)
-            econ.model()
+            econ.balance()
             return econ
 
         def fix(self):

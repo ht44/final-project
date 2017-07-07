@@ -19,7 +19,7 @@ class Leontief:
         self.cxi_null_matrix = np.zeros((len(self.use_table),
                                          len(self.make_table)))
 
-    def model(self):
+    def balance(self):
         self.direct_req = self.derive_direct_req()
         self.market_share = self.derive_market_share()
         self.tech_coefficient = self.derive_tech_coefficient()
@@ -32,6 +32,9 @@ class Leontief:
         self.total_requirements = self.derive_total_requirements()
         self.unit_requirements = self.derive_unit_requirements()
         self.unit_price = self.derive_unit_price()
+
+    def model(self, args):
+        self.tax_matrix = self.derive_tax_matrix(*args)
 
     def derive_direct_req(self):
         x = np.diag(self.industry_vector)
@@ -96,7 +99,7 @@ class Leontief:
     def get_y(self, name):
         return self.commodity_legend.index(name)
 
-    def define_tax_matrix(self, *args):
+    def derive_tax_matrix(self, *args):
         cxi_null_matrix = deepcopy(self.cxi_null_matrix)
         for arg in args:
             commodity, rate = arg

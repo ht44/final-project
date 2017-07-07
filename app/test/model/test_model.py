@@ -99,6 +99,23 @@ class TestModel(object):
             assert fixture.econ.commodity_legend[0] == 'Agriculture, forestry, fishing, and hunting'
         elif fixture.commodity_count == 73:
             assert fixture.econ.commodity_legend[0] == 'Farms'
+        penult_idx = fixture.commodity_count - 2
         last_idx = fixture.commodity_count - 1
-        assert fixture.econ.commodity_legend[last_idx-1] == 'Scrap, used and secondhand goods'
+        assert fixture.econ.commodity_legend[penult_idx] == 'Scrap, used and secondhand goods'
         assert fixture.econ.commodity_legend[last_idx] == 'Noncomparable imports and rest-of-the-world adjustment [1]'
+
+    def test_get_x(self, fixture):
+        if fixture.industry_count == 15:
+            assert fixture.econ.get_x('Agriculture, forestry, fishing, and hunting') == 0
+        elif fixture.industry_count == 71:
+            assert fixture.econ.get_x('Farms') == 0
+
+    def test_get_y(self, fixture):
+        if fixture.commodity_count == 17:
+            assert fixture.econ.get_y('Agriculture, forestry, fishing, and hunting') == 0
+        elif fixture.commodity_count == 73:
+            assert fixture.econ.get_y('Farms') == 0
+        penult_item = 'Scrap, used and secondhand goods'
+        last_item = 'Noncomparable imports and rest-of-the-world adjustment [1]'
+        assert fixture.econ.get_y[last_item] == fixture.commodity_count - 1
+        assert fixture.econ.get_y[penult_item] == fixture.commodity_count - 2

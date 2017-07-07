@@ -95,4 +95,12 @@ class Leontief:
 
     def get_y(self, name):
         return self.commodity_legend.index(name)
+
+    def define_tax_matrix(self, *args):
+        cxi_null_matrix = deepcopy(self.cxi_null_matrix)
+        for arg in args:
+            commodity, rate = arg
+            cxi_null_matrix[commodity].fill(rate)
+        tax_matrix = cxi_null_matrix
+        return tax_matrix
 #

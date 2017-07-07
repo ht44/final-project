@@ -36,4 +36,6 @@ class Dataset:
         self.commodity_vector = self.commodity_df.as_matrix()[0].astype('float')
         self.demand_vector = self.demand_df.as_matrix().astype('float')
         self.noncomp_vector = self.noncomp_df.as_matrix()[0].astype('float')
+        self.industry_legend = self.use_df.columns
+        self.commodity_legend = self.use_df.index
 #

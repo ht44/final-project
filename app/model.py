@@ -7,6 +7,8 @@ class Leontief:
     def __init__(self, dataset):
         self.make_table = deepcopy(dataset.make_table)
         self.use_table = deepcopy(dataset.use_table)
+        self.industry_legend = deepcopy(dataset.industry_legend)
+        self.commodity_legend = deepcopy(dataset.commodity_legend)
         self.industry_vector = deepcopy(dataset.industry_vector)
         self.commodity_vector = deepcopy(dataset.commodity_vector)
         self.value_vector = deepcopy(dataset.value_vector)

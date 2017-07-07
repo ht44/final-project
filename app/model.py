@@ -16,6 +16,8 @@ class Leontief:
         self.noncomp_vector = deepcopy(dataset.noncomp_vector)
         self.identity = np.identity(len(self.use_table))
         self.size = len(self.make_table)
+        self.cxi_null_matrix = np.zeros((len(self.use_table),
+                                         len(self.make_table)))
 
     def model(self):
         self.direct_req = self.derive_direct_req()

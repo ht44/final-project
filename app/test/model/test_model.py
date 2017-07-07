@@ -138,24 +138,28 @@ class TestModel(object):
         np.testing.assert_array_equal(fixture.econ.tax_matrix, expected)
 
     def test_tax_coefficient(self, fixture):
-
         mock_args = [(0, 0.5), (1, 0.2), (2, 0.7)]
         fixture.econ.model(mock_args)
-
         assert len(fixture.econ.tax_coefficient) == fixture.commodity_count
 
-    def test_derive_rel_unit_price(self, fixture):
+    def test_rel_coefficient(self, fixture):
+        mock_args = [(0, 0.5), (1, 0.2), (2, 0.7)]
+        fixture.econ.model(mock_args)
+        expected = np.subtract(fixture.econ.rel_coefficient,
+                                        fixture.econ.tax_coefficient)
+        assert len(fixture.econ.tax_coefficient) == fixture.commodity_count
+        np.testing.assert_almost_equal(fixture.econ.value_coefficient,
+                                       expected[0],
+                                       decimal=4)
 
+    def test_rel_unit_price(self, fixture):
         mock_args = [(0, 0.5), (1, 0.2), (2, 0.7)]
         fixture.econ.model(mock_args)
         rel_unit_price = fixture.econ.rel_unit_price
-
         assert len(rel_unit_price) == fixture.commodity_count
-
-        taxed_coefficient = np.linalg.lstsq(fixture.econ.leontief_inverse_trans, rel_unit_price)
-        value_coefficient = np.subtract(taxed_coefficient, fixture.econ.tax_coefficient)
-
-        asserted = np.dot(fixture.econ.leontief_inverse_trans, value_coefficient)
+        rel_coefficient = np.linalg.lstsq(fixture.econ.leontief_inverse_trans, rel_unit_price)[0]
+        value_coefficient = np.subtract(rel_coefficient, fixture.econ.tax_coefficient)[0]
+        asserted = np.dot(fixture.econ.leontief_inverse_trans, value_coefficient)[0]
         expected = np.ones(fixture.commodity_count)
         np.testing.assert_almost_equal(asserted,
                                        expected,

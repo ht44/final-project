@@ -35,6 +35,9 @@ class Leontief:
 
     def model(self, args):
         self.tax_matrix = self.derive_tax_matrix(*args)
+        self.tax_coefficient = self.derive_tax_coefficient()
+        self.rel_coefficient = self.derive_rel_coefficient()
+        self.rel_unit_price = self.derive_rel_unit_price()
 
     def derive_direct_req(self):
         x = np.diag(self.industry_vector)
@@ -106,4 +109,21 @@ class Leontief:
             cxi_null_matrix[commodity].fill(rate)
         tax_matrix = cxi_null_matrix
         return tax_matrix
+
+    def derive_tax_coefficient(self):
+        a = np.multiply(self.use_table, self.tax_matrix)
+        b = np.linalg.inv(np.diag(self.industry_vector))
+        c = np.dot(a, b)
+        x = np.dot(c, self.market_share)
+        y = x.transpose()
+        z = np.ones((len(self.use_table), 1))
+        q = np.dot(y, z)
+        return q
+
+    def derive_rel_coefficient(self):
+        return np.add(self.value_coefficient, self.tax_coefficient)
+
+    def derive_rel_unit_price(self):
+        return np.dot(self.leontief_inverse_trans,
+                      self.rel_coefficient)
 #

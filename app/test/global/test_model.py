@@ -2,7 +2,7 @@
 import pytest
 import numpy as np
 
-class TestGlobal(object):
+class TestModel(object):
 
     # inputs
 

@@ -85,4 +85,20 @@ class TestModel(object):
         np.testing.assert_almost_equal(fixture.econ.unit_price,
                                        np.ones(fixture.commodity_count),
                                        decimal=1)
-#
+
+    def test_industry_legend(self, fixture):
+        assert len(fixture.econ.industry_legend) == fixture.industry_count
+        if fixture.industry_count == 15:
+            assert fixture.econ.industry_legend[0] == 'Agriculture, forestry, fishing, and hunting'
+        elif fixture.industry_count == 71:
+            assert fixture.econ.industry_legend[0] == 'Farms'
+
+    def test_commodity_legend(self, fixture):
+        assert len(fixture.econ.commodity_legend) == fixture.commodity_count
+        if fixture.commodity_count == 17:
+            assert fixture.econ.commodity_legend[0] == 'Agriculture, forestry, fishing, and hunting'
+        elif fixture.commodity_count == 73:
+            assert fixture.econ.commodity_legend[0] == 'Farms'
+        last_idx = fixture.commodity_count - 1
+        assert fixture.econ.commodity_legend[last_idx-1] == 'Scrap, used and secondhand goods'
+        assert fixture.econ.commodity_legend[last_idx] == 'Noncomparable imports and rest-of-the-world adjustment [1]'

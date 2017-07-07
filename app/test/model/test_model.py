@@ -119,3 +119,10 @@ class TestModel(object):
         last_item = 'Noncomparable imports and rest-of-the-world adjustment [1]'
         assert fixture.econ.get_y(last_item) == fixture.commodity_count - 1
         assert fixture.econ.get_y(penult_item) == fixture.commodity_count - 2
+
+    def test_cxi_null_matrix(self, fixture):
+        assert len(fixture.econ.cxi_null_matrix) == fixture.commodity_count
+        assert len(fixture.econ.cxi_null_matrix[0]) == fixture.industry_count
+        expected = np.zeros((fixture.commodity_count, fixture.industry_count))
+        np.testing.assert_array_equal(fixture.econ.cxi_null_matrix, expected)
+        

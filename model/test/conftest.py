@@ -45,13 +45,13 @@ def y_fixture(request):
                 pass
             td = Deriv()
             td.market_share_matrix = pd.read_pickle(
-                os.path.join('app/test/bea_derivations', self.level, self.year, 'market.pkl')).as_matrix().astype('float')
+                os.path.join('model/test/bea_derivations', self.level, self.year, 'market.pkl')).as_matrix().astype('float')
             td.direct_req_matrix = pd.read_pickle(
-                os.path.join('app/test/bea_derivations', self.level, self.year, 'direct.pkl')).as_matrix().astype('float')
+                os.path.join('model/test/bea_derivations', self.level, self.year, 'direct.pkl')).as_matrix().astype('float')
             td.total_req_matrix = pd.read_pickle(
-                os.path.join('app/test/bea_derivations', self.level, self.year, 'total.pkl')).as_matrix().astype('float')
+                os.path.join('model/test/bea_derivations', self.level, self.year, 'total.pkl')).as_matrix().astype('float')
             td.output_req_vector = pd.read_pickle(
-                os.path.join('app/test/bea_derivations', self.level, self.year, 'output.pkl')).as_matrix()[0].astype('float')
+                os.path.join('model/test/bea_derivations', self.level, self.year, 'output.pkl')).as_matrix()[0].astype('float')
             return td
 
         def get_econ(self):
@@ -126,13 +126,13 @@ def g_fixture(request):
                 pass
             td = Deriv()
             td.market_share_matrix = pd.read_pickle(
-                os.path.join('app/test/bea_derivations', self.level, self.year, 'market.pkl')).as_matrix().astype('float')
+                os.path.join('model/test/bea_derivations', self.level, self.year, 'market.pkl')).as_matrix().astype('float')
             td.direct_req_matrix = pd.read_pickle(
-                os.path.join('app/test/bea_derivations', self.level, self.year, 'direct.pkl')).as_matrix().astype('float')
+                os.path.join('model/test/bea_derivations', self.level, self.year, 'direct.pkl')).as_matrix().astype('float')
             td.total_req_matrix = pd.read_pickle(
-                os.path.join('app/test/bea_derivations', self.level, self.year, 'total.pkl')).as_matrix().astype('float')
+                os.path.join('model/test/bea_derivations', self.level, self.year, 'total.pkl')).as_matrix().astype('float')
             td.output_req_vector = pd.read_pickle(
-                os.path.join('app/test/bea_derivations', self.level, self.year, 'output.pkl')).as_matrix()[0].astype('float')
+                os.path.join('model/test/bea_derivations', self.level, self.year, 'output.pkl')).as_matrix()[0].astype('float')
             return td
 
         def get_econ(self):

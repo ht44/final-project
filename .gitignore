@@ -1,11 +1,11 @@
 .DS_Store
-app/.DS_Store
-app/pickles/.DS_Store
-app/test/.DS_Store
+model/.DS_Store
+model/pickles/.DS_Store
+model/test/.DS_Store
 
 .cache/
-app/__pycache__/
-app/test/__pycache__/
-app/test/model/__pycache__/
-app/test/global/__pycache__/
+model/__pycache__/
+model/test/__pycache__/
+model/test/model/__pycache__/
+model/test/global/__pycache__/
 temp/

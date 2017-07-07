@@ -117,5 +117,5 @@ class TestModel(object):
             assert fixture.econ.get_y('Farms') == 0
         penult_item = 'Scrap, used and secondhand goods'
         last_item = 'Noncomparable imports and rest-of-the-world adjustment [1]'
-        assert fixture.econ.get_y[last_item] == fixture.commodity_count - 1
-        assert fixture.econ.get_y[penult_item] == fixture.commodity_count - 2
+        assert fixture.econ.get_y(last_item) == fixture.commodity_count - 1
+        assert fixture.econ.get_y(penult_item) == fixture.commodity_count - 2

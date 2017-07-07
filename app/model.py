@@ -87,4 +87,10 @@ class Leontief:
     def derive_unit_price(self):
         return np.dot(self.leontief_inverse_trans,
                       self.value_coefficient)
+
+    def get_x(self, name):
+        return self.industry_legend.index(name)
+
+    def get_y(self, name):
+        return self.commodity_legend.index(name)
 #

@@ -125,4 +125,12 @@ class TestModel(object):
         assert len(fixture.econ.cxi_null_matrix[0]) == fixture.industry_count
         expected = np.zeros((fixture.commodity_count, fixture.industry_count))
         np.testing.assert_array_equal(fixture.econ.cxi_null_matrix, expected)
-        
+
+    def test_define_tax_matrix(self, fixture):
+        mock_args = [(0, 0.5), (1, 0.2), (2, 0.7)]
+        expected = np.zeros((fixture.commodity_count, fixture.industry_count))
+        for arg in mock_args:
+            commodity, rate = arg
+            expected[commodity].fill(rate)
+        np.testing.assert_array_equal(fixture.econ.define_tax_matrix(*mock_args),
+                                      expected)

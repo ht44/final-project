@@ -2,6 +2,8 @@
 import os
 import pytest
 import pandas as pd
+import numpy as np
+import random
 from copy import deepcopy
 from ... import model
 from ... import data
@@ -53,9 +55,13 @@ def fixture(request):
             return td
 
         def get_econ(self):
+            rand_comms = random.sample(range(self.commodity_count), 3)
+            rand_rates = [random.random() for i in range(2)]
+            mock_args = zip(rand_comms, rand_rates)
             data = Dataset(self.level, self.year)
             econ = Leontief(data)
             econ.balance()
+            econ.model(list(mock_args))
             return econ
 
         def fix(self):
@@ -63,8 +69,6 @@ def fixture(request):
             self.commodity_count = self.get_commodity_count()
             self.test_derivations = self.get_test_derivations()
             self.econ = self.get_econ()
-
-
 
     fixture = ModelFixture(request.param, request.config.getoption('--year'))
     fixture.fix()

@@ -37,7 +37,31 @@ class TestModel(object):
         assert len(fixture.econ.identity) == fixture.commodity_count
         assert len(fixture.econ.identity[0]) == fixture.commodity_count
 
-    # derivations
+    def test_industry_legend(self, fixture):
+        assert len(fixture.econ.industry_legend) == fixture.industry_count
+        if fixture.industry_count == 15:
+            assert fixture.econ.industry_legend[0] == 'Agriculture, forestry, fishing, and hunting'
+        elif fixture.industry_count == 71:
+            assert fixture.econ.industry_legend[0] == 'Farms'
+
+    def test_commodity_legend(self, fixture):
+        assert len(fixture.econ.commodity_legend) == fixture.commodity_count
+        if fixture.commodity_count == 17:
+            assert fixture.econ.commodity_legend[0] == 'Agriculture, forestry, fishing, and hunting'
+        elif fixture.commodity_count == 73:
+            assert fixture.econ.commodity_legend[0] == 'Farms'
+        penult_idx = fixture.commodity_count - 2
+        last_idx = fixture.commodity_count - 1
+        assert fixture.econ.commodity_legend[penult_idx] == 'Scrap, used and secondhand goods'
+        assert fixture.econ.commodity_legend[last_idx] == 'Noncomparable imports and rest-of-the-world adjustment [1]'
+
+    def test_cxi_null_matrix(self, fixture):
+        assert len(fixture.econ.cxi_null_matrix) == fixture.commodity_count
+        assert len(fixture.econ.cxi_null_matrix[0]) == fixture.industry_count
+        expected = np.zeros((fixture.commodity_count, fixture.industry_count))
+        np.testing.assert_array_equal(fixture.econ.cxi_null_matrix, expected)
+
+    # balancing derivations
 
     def test_direct_req(self, fixture):
         assert len(fixture.econ.direct_req) == fixture.commodity_count
@@ -86,23 +110,36 @@ class TestModel(object):
                                        np.ones(fixture.commodity_count),
                                        decimal=1)
 
-    def test_industry_legend(self, fixture):
-        assert len(fixture.econ.industry_legend) == fixture.industry_count
-        if fixture.industry_count == 15:
-            assert fixture.econ.industry_legend[0] == 'Agriculture, forestry, fishing, and hunting'
-        elif fixture.industry_count == 71:
-            assert fixture.econ.industry_legend[0] == 'Farms'
+    # modeling derivations
 
-    def test_commodity_legend(self, fixture):
-        assert len(fixture.econ.commodity_legend) == fixture.commodity_count
-        if fixture.commodity_count == 17:
-            assert fixture.econ.commodity_legend[0] == 'Agriculture, forestry, fishing, and hunting'
-        elif fixture.commodity_count == 73:
-            assert fixture.econ.commodity_legend[0] == 'Farms'
-        penult_idx = fixture.commodity_count - 2
-        last_idx = fixture.commodity_count - 1
-        assert fixture.econ.commodity_legend[penult_idx] == 'Scrap, used and secondhand goods'
-        assert fixture.econ.commodity_legend[last_idx] == 'Noncomparable imports and rest-of-the-world adjustment [1]'
+    def test_tax_matrix(self, fixture):
+        mock_args = fixture.econ.model_args
+        expected = np.zeros((fixture.commodity_count, fixture.industry_count))
+        for arg in mock_args:
+            commodity, rate = arg
+            expected[commodity].fill(rate)
+        np.testing.assert_array_equal(fixture.econ.tax_matrix, expected)
+
+    def test_tax_coefficient(self, fixture):
+        assert len(fixture.econ.tax_coefficient) == fixture.commodity_count
+
+    def test_rel_coefficient(self, fixture):
+        expected = np.subtract(fixture.econ.rel_coefficient,
+                                        fixture.econ.tax_coefficient)[0]
+        assert len(fixture.econ.tax_coefficient) == fixture.commodity_count
+        np.testing.assert_almost_equal(fixture.econ.value_coefficient,
+                                       expected, decimal=1)
+
+    def test_rel_unit_price(self, fixture):
+        rel_unit_price = fixture.econ.rel_unit_price
+        rel_coefficient = np.linalg.lstsq(fixture.econ.leontief_inverse_trans, rel_unit_price)[0]
+        value_coefficient = np.subtract(rel_coefficient, fixture.econ.tax_coefficient)[0]
+        asserted = np.dot(fixture.econ.leontief_inverse_trans, value_coefficient)[0]
+        expected = np.ones(fixture.commodity_count)
+        assert len(rel_unit_price) == fixture.commodity_count
+        np.testing.assert_almost_equal(asserted, expected, decimal=1)
+
+    # helper methods
 
     def test_get_x(self, fixture):
         if fixture.industry_count == 15:
@@ -119,48 +156,4 @@ class TestModel(object):
         last_item = 'Noncomparable imports and rest-of-the-world adjustment [1]'
         assert fixture.econ.get_y(last_item) == fixture.commodity_count - 1
         assert fixture.econ.get_y(penult_item) == fixture.commodity_count - 2
-
-    def test_cxi_null_matrix(self, fixture):
-        assert len(fixture.econ.cxi_null_matrix) == fixture.commodity_count
-        assert len(fixture.econ.cxi_null_matrix[0]) == fixture.industry_count
-        expected = np.zeros((fixture.commodity_count, fixture.industry_count))
-        np.testing.assert_array_equal(fixture.econ.cxi_null_matrix, expected)
-
-    def test_tax_matrix(self, fixture):
-
-        mock_args = [(0, 0.5), (1, 0.2), (2, 0.7)]
-        fixture.econ.model(mock_args)
-
-        expected = np.zeros((fixture.commodity_count, fixture.industry_count))
-        for arg in mock_args:
-            commodity, rate = arg
-            expected[commodity].fill(rate)
-        np.testing.assert_array_equal(fixture.econ.tax_matrix, expected)
-
-    def test_tax_coefficient(self, fixture):
-        mock_args = [(0, 0.5), (1, 0.2), (2, 0.7)]
-        fixture.econ.model(mock_args)
-        assert len(fixture.econ.tax_coefficient) == fixture.commodity_count
-
-    def test_rel_coefficient(self, fixture):
-        mock_args = [(0, 0.5), (1, 0.2), (2, 0.7)]
-        fixture.econ.model(mock_args)
-        expected = np.subtract(fixture.econ.rel_coefficient,
-                                        fixture.econ.tax_coefficient)
-        assert len(fixture.econ.tax_coefficient) == fixture.commodity_count
-        np.testing.assert_almost_equal(fixture.econ.value_coefficient,
-                                       expected[0],
-                                       decimal=4)
-
-    def test_rel_unit_price(self, fixture):
-        mock_args = [(0, 0.5), (1, 0.2), (2, 0.7)]
-        fixture.econ.model(mock_args)
-        rel_unit_price = fixture.econ.rel_unit_price
-        assert len(rel_unit_price) == fixture.commodity_count
-        rel_coefficient = np.linalg.lstsq(fixture.econ.leontief_inverse_trans, rel_unit_price)[0]
-        value_coefficient = np.subtract(rel_coefficient, fixture.econ.tax_coefficient)[0]
-        asserted = np.dot(fixture.econ.leontief_inverse_trans, value_coefficient)[0]
-        expected = np.ones(fixture.commodity_count)
-        np.testing.assert_almost_equal(asserted,
-                                       expected,
-                                       decimal=1)
+#

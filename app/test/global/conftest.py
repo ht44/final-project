@@ -2,6 +2,8 @@
 import os
 import pytest
 import pandas as pd
+import numpy as np
+import random
 from copy import deepcopy
 from ... import model
 from ... import data
@@ -30,7 +32,6 @@ Dataset = data.Dataset
     'summ04', 'summ05', 'summ06', 'summ07', 'summ08', 'summ09', 'summ10',
     'summ11', 'summ12', 'summ13', 'summ14', 'summ15'
 ])
-# @pytest.fixture(scope='class', params=['sector', 'summary'])
 def fixture(request):
     class ModelFixture:
         def __init__(self, level, year):
@@ -71,9 +72,13 @@ def fixture(request):
             return td
 
         def get_econ(self):
+            rand_comms = random.sample(range(self.commodity_count), 3)
+            rand_rates = [random.random() for i in range(2)]
+            mock_args = zip(rand_comms, rand_rates)
             data = Dataset(self.level, self.year)
             econ = Leontief(data)
             econ.balance()
+            econ.model(list(mock_args))
             return econ
 
         def fix(self):
@@ -81,7 +86,6 @@ def fixture(request):
             self.commodity_count = self.get_commodity_count()
             self.test_derivations = self.get_test_derivations()
             self.econ = self.get_econ()
-
 
     level, year = request.param
     fixture = ModelFixture(level, year)

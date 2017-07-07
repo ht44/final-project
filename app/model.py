@@ -34,10 +34,13 @@ class Leontief:
         self.unit_price = self.derive_unit_price()
 
     def model(self, args):
+        self.model_args = args
         self.tax_matrix = self.derive_tax_matrix(*args)
         self.tax_coefficient = self.derive_tax_coefficient()
         self.rel_coefficient = self.derive_rel_coefficient()
         self.rel_unit_price = self.derive_rel_unit_price()
+
+    # balancing derivations
 
     def derive_direct_req(self):
         x = np.diag(self.industry_vector)
@@ -96,11 +99,7 @@ class Leontief:
         return np.dot(self.leontief_inverse_trans,
                       self.value_coefficient)
 
-    def get_x(self, name):
-        return self.industry_legend.index(name)
-
-    def get_y(self, name):
-        return self.commodity_legend.index(name)
+    # modeling derivations
 
     def derive_tax_matrix(self, *args):
         cxi_null_matrix = deepcopy(self.cxi_null_matrix)
@@ -126,4 +125,12 @@ class Leontief:
     def derive_rel_unit_price(self):
         return np.dot(self.leontief_inverse_trans,
                       self.rel_coefficient)
+
+    # helper methods
+
+    def get_x(self, name):
+        return self.industry_legend.index(name)
+
+    def get_y(self, name):
+        return self.commodity_legend.index(name)
 #

@@ -158,14 +158,13 @@ class TestYear(object):
         mock_args = [(0, -500), (1, 300), (2, 99)]
         single_year.econ.model_output(mock_args)
 
-        asserted = np.linalg.lstsq(single_year.econ.rel_total_requirements,
-                                   single_year.econ.demand_argument)
+        assert len(single_year.econ.rel_total_requirements) == single_year.commodity_count
 
-        expected = single_year.test_derivations.total_requirements
+        asserted = single_year.econ.rel_total_requirements
+        expected = np.dot(single_year.test_derivations.total_req_matrix,
+                          single_year.econ.demand_argument)
 
-        np.testing.assert_almost_equal(asserted, expected)
-
-
+        np.testing.assert_allclose(asserted, expected, rtol=1e-2)
 
     # helper methods
 

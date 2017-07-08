@@ -40,7 +40,7 @@ class Leontief:
 
     def model_output(self, args):
         self.demand_argument = self.derive_demand_argument(*args)
-
+        self.rel_total_requirements = self.derive_rel_total_requirements()
 
     # balancing derivations
 
@@ -129,6 +129,10 @@ class Leontief:
             commodity, delta = arg
             demand[commodity][0] = demand[commodity][0] + delta
         return demand
+
+    def derive_rel_total_requirements(self):
+        return np.dot(self.leontief_inverse,
+                      self.demand_argument)
 
     # helper methods
 

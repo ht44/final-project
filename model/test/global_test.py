@@ -141,6 +141,31 @@ class TestEachYear(object):
         assert len(rel_unit_price) == multi_year.commodity_count
         np.testing.assert_almost_equal(asserted, expected, decimal=1)
 
+    def test_demand_argument(self, multi_year):
+
+        mock_args = [(0, -500), (1, 300), (2, 99)]
+        multi_year.econ.model_output(mock_args)
+
+        asserted = multi_year.econ.demand_argument
+        expected = multi_year.test_derivations.demand_vector
+        for arg in mock_args:
+            commodity, delta = arg
+            expected[commodity][0] = expected[commodity][0] + delta
+
+        np.testing.assert_almost_equal(asserted, expected, decimal=1)
+
+    def test_rel_total_requirements(self, multi_year):
+        mock_args = [(0, -500), (1, 300), (2, 99)]
+        multi_year.econ.model_output(mock_args)
+
+        assert len(multi_year.econ.rel_total_requirements) == multi_year.commodity_count
+
+        asserted = multi_year.econ.rel_total_requirements
+        expected = np.dot(multi_year.test_derivations.total_req_matrix,
+                          multi_year.econ.demand_argument)
+
+        np.testing.assert_allclose(asserted, expected, rtol=1e-2)
+
     # helper methods
 
     def test_get_x(self, multi_year):

@@ -59,7 +59,7 @@ class ModelFixture:
         data = Dataset(self.level, self.year)
         econ = Leontief(data)
         econ.balance()
-        econ.model(list(mock_args))
+        econ.model_price(list(mock_args))
         return econ
 
     def fix(self):

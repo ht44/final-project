@@ -154,6 +154,19 @@ class TestYear(object):
 
         np.testing.assert_almost_equal(asserted, expected, decimal=1)
 
+    def test_rel_total_requirements(self, single_year):
+        mock_args = [(0, -500), (1, 300), (2, 99)]
+        single_year.econ.model_output(mock_args)
+
+        asserted = np.linalg.lstsq(single_year.econ.rel_total_requirements,
+                                   single_year.econ.demand_argument)
+
+        expected = single_year.test_derivations.total_requirements
+
+        np.testing.assert_almost_equal(asserted, expected)
+
+
+
     # helper methods
 
     def test_get_x(self, single_year):

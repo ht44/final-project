@@ -38,6 +38,8 @@ class Leontief:
         self.rel_coefficient = self.derive_rel_coefficient()
         self.rel_unit_price = self.derive_rel_unit_price()
 
+    def model_output(self, args):
+        self.demand_argument = self.derive_demand_argument(*args)
 
 
     # balancing derivations
@@ -120,6 +122,13 @@ class Leontief:
     def derive_rel_unit_price(self):
         return np.dot(self.leontief_inverse_trans,
                       self.rel_coefficient)
+
+    def derive_demand_argument(self, *args):
+        demand = deepcopy(self.demand_vector)
+        for arg in args:
+            commodity, delta = arg
+            demand[commodity][0] = demand[commodity][0] + delta
+        return demand
 
     # helper methods
 

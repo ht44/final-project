@@ -2,9 +2,7 @@
 import os
 import pytest
 import pandas as pd
-import numpy as np
 import random
-from copy import deepcopy
 from .. import model
 from .. import data
 
@@ -14,67 +12,72 @@ Dataset = data.Dataset
 def pytest_addoption(parser):
     parser.addoption('--year', action='store', default='2015')
 
+class ModelFixture:
+    def __init__(self, level, year):
+        self.level = level
+        self.year = year
+        self.industry_count = None
+        self.commodity_count = None
+        self.test_derivations = None
+
+    def get_industry_count(self):
+        industry_count = None
+        if self.level == 'sector':
+            industry_count = 15
+        elif self.level == 'summary':
+            industry_count = 71
+        return industry_count
+
+    def get_commodity_count(self):
+        commodity_count = None
+        if self.level == 'sector':
+            commodity_count = 17
+        elif self.level == 'summary':
+            commodity_count = 73
+        return commodity_count
+
+    def get_test_derivations(self):
+        class Deriv(object):
+            pass
+        td = Deriv()
+        td.demand_vector = pd.read_pickle(
+            os.path.join('model/pickles', self.level, self.year, 'demand.pkl')).as_matrix().astype('float')
+        td.market_share_matrix = pd.read_pickle(
+            os.path.join('model/test/bea_derivations', self.level, self.year, 'market.pkl')).as_matrix().astype('float')
+        td.direct_req_matrix = pd.read_pickle(
+            os.path.join('model/test/bea_derivations', self.level, self.year, 'direct.pkl')).as_matrix().astype('float')
+        td.total_req_matrix = pd.read_pickle(
+            os.path.join('model/test/bea_derivations', self.level, self.year, 'total.pkl')).as_matrix().astype('float')
+        td.output_req_vector = pd.read_pickle(
+            os.path.join('model/test/bea_derivations', self.level, self.year, 'output.pkl')).as_matrix()[0].astype('float')
+        return td
+
+    def get_econ(self):
+        rand_comms = random.sample(range(self.commodity_count), 3)
+        rand_rates = [random.random() for i in range(2)]
+        mock_args = zip(rand_comms, rand_rates)
+        data = Dataset(self.level, self.year)
+        econ = Leontief(data)
+        econ.balance()
+        econ.model(list(mock_args))
+        return econ
+
+    def fix(self):
+        self.industry_count = self.get_industry_count()
+        self.commodity_count = self.get_commodity_count()
+        self.test_derivations = self.get_test_derivations()
+        self.econ = self.get_econ()
+
 @pytest.fixture(scope='class', params=['sector', 'summary'])
-def y_fixture(request):
-    class ModelFixture:
-        def __init__(self, level, year):
-            self.level = level
-            self.year = year
-            self.industry_count = None
-            self.commodity_count = None
-            self.test_derivations = None
-
-        def get_industry_count(self):
-            industry_count = None
-            if self.level == 'sector':
-                industry_count = 15
-            elif self.level == 'summary':
-                industry_count = 71
-            return industry_count
-
-        def get_commodity_count(self):
-            commodity_count = None
-            if self.level == 'sector':
-                commodity_count = 17
-            elif self.level == 'summary':
-                commodity_count = 73
-            return commodity_count
-
-        def get_test_derivations(self):
-            class Deriv(object):
-                pass
-            td = Deriv()
-            td.market_share_matrix = pd.read_pickle(
-                os.path.join('model/test/bea_derivations', self.level, self.year, 'market.pkl')).as_matrix().astype('float')
-            td.direct_req_matrix = pd.read_pickle(
-                os.path.join('model/test/bea_derivations', self.level, self.year, 'direct.pkl')).as_matrix().astype('float')
-            td.total_req_matrix = pd.read_pickle(
-                os.path.join('model/test/bea_derivations', self.level, self.year, 'total.pkl')).as_matrix().astype('float')
-            td.output_req_vector = pd.read_pickle(
-                os.path.join('model/test/bea_derivations', self.level, self.year, 'output.pkl')).as_matrix()[0].astype('float')
-            return td
-
-        def get_econ(self):
-            rand_comms = random.sample(range(self.commodity_count), 3)
-            rand_rates = [random.random() for i in range(2)]
-            mock_args = zip(rand_comms, rand_rates)
-            data = Dataset(self.level, self.year)
-            econ = Leontief(data)
-            econ.balance()
-            econ.model(list(mock_args))
-            return econ
-
-        def fix(self):
-            self.industry_count = self.get_industry_count()
-            self.commodity_count = self.get_commodity_count()
-            self.test_derivations = self.get_test_derivations()
-            self.econ = self.get_econ()
-
-    fixture = ModelFixture(request.param, request.config.getoption('--year'))
+def single_year(request):
+    level = request.param
+    year = request.config.getoption('year')
+    fixture = ModelFixture(level, year)
     fixture.fix()
     yield fixture
     fixture = None
-#
+
+#######
 @pytest.fixture(scope='class', params=[
     ('sector', '1997'), ('sector', '1998'), ('sector', '1999'),
     ('sector', '2000'), ('sector', '2001'), ('sector', '2002'),
@@ -94,63 +97,8 @@ def y_fixture(request):
     'sect11', 'sect12', 'sect13', 'sect14', 'sect15',
     'summ97', 'summ98', 'summ99', 'summ00', 'summ01', 'summ02', 'summ03',
     'summ04', 'summ05', 'summ06', 'summ07', 'summ08', 'summ09', 'summ10',
-    'summ11', 'summ12', 'summ13', 'summ14', 'summ15'
-])
-def g_fixture(request):
-    class ModelFixture:
-        def __init__(self, level, year):
-            self.level = level
-            self.year = year
-            self.industry_count = None
-            self.commodity_count = None
-            self.test_derivations = None
-
-        def get_industry_count(self):
-            industry_count = None
-            if self.level == 'sector':
-                industry_count = 15
-            elif self.level == 'summary':
-                industry_count = 71
-            return industry_count
-
-        def get_commodity_count(self):
-            commodity_count = None
-            if self.level == 'sector':
-                commodity_count = 17
-            elif self.level == 'summary':
-                commodity_count = 73
-            return commodity_count
-
-        def get_test_derivations(self):
-            class Deriv(object):
-                pass
-            td = Deriv()
-            td.market_share_matrix = pd.read_pickle(
-                os.path.join('model/test/bea_derivations', self.level, self.year, 'market.pkl')).as_matrix().astype('float')
-            td.direct_req_matrix = pd.read_pickle(
-                os.path.join('model/test/bea_derivations', self.level, self.year, 'direct.pkl')).as_matrix().astype('float')
-            td.total_req_matrix = pd.read_pickle(
-                os.path.join('model/test/bea_derivations', self.level, self.year, 'total.pkl')).as_matrix().astype('float')
-            td.output_req_vector = pd.read_pickle(
-                os.path.join('model/test/bea_derivations', self.level, self.year, 'output.pkl')).as_matrix()[0].astype('float')
-            return td
-
-        def get_econ(self):
-            rand_comms = random.sample(range(self.commodity_count), 3)
-            rand_rates = [random.random() for i in range(2)]
-            mock_args = zip(rand_comms, rand_rates)
-            data = Dataset(self.level, self.year)
-            econ = Leontief(data)
-            econ.balance()
-            econ.model(list(mock_args))
-            return econ
-
-        def fix(self):
-            self.industry_count = self.get_industry_count()
-            self.commodity_count = self.get_commodity_count()
-            self.test_derivations = self.get_test_derivations()
-            self.econ = self.get_econ()
-
+    'summ11', 'summ12', 'summ13', 'summ14', 'summ15'])
+def multi_year(request):
     level, year = request.param
     fixture = ModelFixture(level, year)
     fixture.fix()

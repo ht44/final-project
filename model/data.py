@@ -1,11 +1,9 @@
 #
 import os
-import numpy as np
 import pandas as pd
-from copy import deepcopy
 
 class Dataset:
-    def __init__(self, level, year):
+    def __init__(self, level='sector', year='2015'):
 
         self.use_df = pd.read_pickle(
             os.path.join(

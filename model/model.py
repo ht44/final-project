@@ -1,6 +1,5 @@
 #
 import numpy as np
-import pandas as pd
 from copy import deepcopy
 
 class Leontief:
@@ -26,7 +25,6 @@ class Leontief:
         self.tech_coefficient_trans = self.tech_coefficient.transpose()
         self.adjustment = self.derive_adjustment()
         self.value_coefficient = self.derive_value_coefficient()
-        self.demand_coefficient = self.derive_demand_coefficient()
         self.leontief_inverse = self.derive_leontief_inverse()
         self.leontief_inverse_trans = self.derive_leontief_inverse_trans()
         self.total_requirements = self.derive_total_requirements()
@@ -70,11 +68,6 @@ class Leontief:
         y = np.dot(x, self.market_share)
         z = np.add(y, self.adjustment)
         return z
-
-    def derive_demand_coefficient(self):
-        x = np.dot(self.market_share,
-                   self.demand_vector)
-        return x
 
     def derive_leontief_inverse(self):
         x = np.subtract(self.identity,

@@ -115,7 +115,7 @@ class TestYear(object):
     # modeling derivations
 
     def test_tax_matrix(self, single_year):
-        mock_args = single_year.econ.model_args
+        mock_args = single_year.econ.rel_price_args
         expected = np.zeros((single_year.commodity_count, single_year.industry_count))
         for arg in mock_args:
             commodity, rate = arg
@@ -143,8 +143,13 @@ class TestYear(object):
 
     def test_demand_argument(self, single_year):
 
-        mock_args = [(0, -500), (1, 300), (2, 99)]
-        single_year.econ.model_output(mock_args)
+        mock_args = single_year.econ.rel_demand_args
+
+        assert len(mock_args) == len(single_year.econ.rel_price_args)
+        assert mock_args[0][1] < 0
+        assert mock_args[2][1] < 0
+        assert mock_args[1][1] > 0
+        assert mock_args[3][1] > 0
 
         asserted = single_year.econ.demand_argument
         expected = single_year.test_derivations.demand_vector
@@ -155,9 +160,6 @@ class TestYear(object):
         np.testing.assert_almost_equal(asserted, expected, decimal=1)
 
     def test_rel_total_requirements(self, single_year):
-        mock_args = [(0, -500), (1, 300), (2, 99)]
-        single_year.econ.model_output(mock_args)
-
         assert len(single_year.econ.rel_total_requirements) == single_year.commodity_count
 
         asserted = single_year.econ.rel_total_requirements

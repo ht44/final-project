@@ -53,13 +53,23 @@ class ModelFixture:
         return td
 
     def get_econ(self):
-        rand_comms = random.sample(range(self.commodity_count), 3)
-        rand_rates = [random.random() for i in range(2)]
-        mock_args = zip(rand_comms, rand_rates)
+
+        rand_comms = random.sample(range(self.commodity_count), 6)
+        rand_rates = [random.random() for i in range(6)]
+
+        rand_deltas = random.sample(range(1, 1000), 6)
+
+        for i in range(0, len(rand_deltas), 2):
+            rand_deltas[i] = rand_deltas[i] * -1
+
+        mock_price_args = zip(rand_comms, rand_rates)
+        mock_demand_args = zip(rand_comms, rand_deltas)
+
         data = Dataset(self.level, self.year)
         econ = Leontief(data)
         econ.balance()
-        econ.model_price(list(mock_args))
+        econ.model_price(list(mock_price_args))
+        econ.model_output(list(mock_demand_args))
         return econ
 
     def fix(self):

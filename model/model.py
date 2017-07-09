@@ -32,14 +32,15 @@ class Leontief:
         self.unit_price = self.derive_unit_price()
 
     def model_price(self, args):
-        self.model_args = args
-        self.tax_matrix = self.derive_tax_matrix(*self.model_args)
+        self.rel_price_args = args
+        self.tax_matrix = self.derive_tax_matrix(*self.rel_price_args)
         self.tax_coefficient = self.derive_tax_coefficient()
         self.rel_coefficient = self.derive_rel_coefficient()
         self.rel_unit_price = self.derive_rel_unit_price()
 
     def model_output(self, args):
-        self.demand_argument = self.derive_demand_argument(*args)
+        self.rel_demand_args = args
+        self.demand_argument = self.derive_demand_argument(*self.rel_demand_args)
         self.rel_total_requirements = self.derive_rel_total_requirements()
 
     # balancing derivations

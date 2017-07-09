@@ -142,4 +142,12 @@ class Leontief:
 
     def get_y(self, name):
         return self.commodity_legend.index(name)
+
+    def process_args(self, args):
+        for a in range(len(args)):
+            if type(args[a][0] == str):
+                key = self.get_y(args[a][0])
+                val = args[a][1]
+                args[a] = key, val
+        return args
 #

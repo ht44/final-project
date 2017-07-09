@@ -1,5 +1,5 @@
 #
-
+import random
 import pytest
 import numpy as np
 
@@ -185,3 +185,14 @@ class TestEachYear(object):
         last_item = 'Noncomparable imports and rest-of-the-world adjustment [1]'
         assert multi_year.econ.get_y(last_item) == multi_year.commodity_count - 1
         assert multi_year.econ.get_y(penult_item) == multi_year.commodity_count - 2
+
+    def test_process_args(self, multi_year):
+
+        names = multi_year.econ.commodity_legend
+        nums = [i for i in range(multi_year.commodity_count)]
+        vals = [random.random() for j in range(multi_year.commodity_count)]
+
+        asserted = multi_year.econ.process_args(list(zip(names, vals)))
+        expected = list(zip(nums, vals))
+
+        assert asserted == expected

@@ -1,5 +1,5 @@
 #
-
+import random
 import pytest
 import numpy as np
 
@@ -187,12 +187,13 @@ class TestYear(object):
         assert single_year.econ.get_y(penult_item) == single_year.commodity_count - 2
 
     def test_process_args(self, single_year):
-        if single_year.commodity_count == 17:
-            arg = 'Agriculture, forestry, fishing, and hunting'
-        elif single_year.commodity_count == 73:
-            arg = 'Farms'
-        mock_args = [(arg, 0.5)]
-        asserted = single_year.econ.process_args(mock_args)
-        expected = [(0, 0.5)]
+
+        names = single_year.econ.commodity_legend
+        nums = [i for i in range(single_year.commodity_count)]
+        vals = [random.random() for j in range(single_year.commodity_count)]
+
+        asserted = single_year.econ.process_args(list(zip(names, vals)))
+        expected = list(zip(nums, vals))
+
         assert asserted == expected
 #

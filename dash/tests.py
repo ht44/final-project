@@ -14,24 +14,11 @@ class DashApiIndexTest(TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        del cls.econ
-        del cls.response
-        del cls.parsed
+        del cls
 
     def test_dash_index_resp(self):
         self.assertEqual(self.parsed['level'], 'sector')
         self.assertEqual(self.parsed['year'], 2015)
-
-    def test_dash_index_resp_attr(self):
-        self.assertIn('use_matrix', self.parsed)
-        self.assertIn('make_matrix', self.parsed)
-        self.assertIn('industry_vector', self.parsed)
-        self.assertIn('commodity_vector', self.parsed)
-        self.assertIn('value_vector', self.parsed)
-        self.assertIn('demand_vector', self.parsed)
-        self.assertIn('noncomp_vector', self.parsed)
-
-    def test_dash_index_resp_data(self):
         self.assertEqual(self.parsed['use_matrix'], self.econ.use_matrix.tolist())
         self.assertEqual(self.parsed['make_matrix'], self.econ.make_matrix.tolist())
         self.assertEqual(self.parsed['industry_vector'], self.econ.industry_vector.tolist())
@@ -39,6 +26,12 @@ class DashApiIndexTest(TestCase):
         self.assertEqual(self.parsed['value_vector'], self.econ.value_vector.tolist())
         self.assertEqual(self.parsed['demand_vector'], self.econ.demand_vector.tolist())
         self.assertEqual(self.parsed['noncomp_vector'], self.econ.noncomp_vector.tolist())
+        self.assertEqual(self.parsed['direct_req'], self.econ.direct_req.tolist())
+        self.assertEqual(self.parsed['market_share'], self.econ.market_share.tolist())
+        self.assertEqual(self.parsed['leontief_inverse'], self.econ.leontief_inverse.tolist())
+        self.assertEqual(self.parsed['total_requirements'], self.econ.total_requirements.tolist())
+        self.assertEqual(self.parsed['unit_requirements'], self.econ.unit_requirements.tolist())
+        self.assertEqual(self.parsed['unit_price'], self.econ.unit_price.tolist())
 
 class DashApiFilterTest(TestCase):
     @classmethod
@@ -51,12 +44,24 @@ class DashApiFilterTest(TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        del cls.level
-        del cls.year
-        del cls.econ
-        del cls.response
-        del cls.parsed
+        del cls
 
     def test_dash_filter_resp(self):
-        self.assertEqual(self.parsed['level'], self.level)
-        self.assertEqual(self.parsed['year'], self.year)
+        self.assertEqual(self.parsed['level'],
+                         self.level)
+        self.assertEqual(self.parsed['year'],
+                         self.year)
+        self.assertEqual(self.parsed['use_matrix'],
+                         self.econ.use_matrix.tolist())
+        self.assertEqual(self.parsed['make_matrix'],
+                         self.econ.make_matrix.tolist())
+        self.assertEqual(self.parsed['industry_vector'],
+                         self.econ.industry_vector.tolist())
+        self.assertEqual(self.parsed['commodity_vector'],
+                         self.econ.commodity_vector.tolist())
+        self.assertEqual(self.parsed['value_vector'],
+                         self.econ.value_vector.tolist())
+        self.assertEqual(self.parsed['demand_vector'],
+                         self.econ.demand_vector.tolist())
+        self.assertEqual(self.parsed['noncomp_vector'],
+                         self.econ.noncomp_vector.tolist())

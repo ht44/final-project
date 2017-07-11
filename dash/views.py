@@ -1,17 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from iomodel import model as m
 import json
 
 def index(request):
-    res = {
+    econ = m.Leontief('sector', '2015', sql=True)
+    resp = {
         'level': 'sector',
         'year': 2015,
-        'use_matrix': '',
-        'make_matrix': '',
-        'industry_vector': '',
-        'commodity_vector': '',
-        'value_vector': '',
-        'demand_vector': '',
-        'noncomp_vector': '',
+        'use_matrix': econ.use_matrix.tolist(),
+        'make_matrix': econ.make_matrix.tolist(),
+        'industry_vector': econ.industry_vector.tolist(),
+        'commodity_vector': econ.commodity_vector.tolist(),
+        'value_vector': econ.value_vector.tolist(),
+        'demand_vector': econ.demand_vector.tolist(),
+        'noncomp_vector': econ.noncomp_vector.tolist(),
     }
-    return HttpResponse(json.dumps(res), content_type='application/json')
+    return HttpResponse(json.dumps(resp), content_type='application/json')

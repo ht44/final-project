@@ -12,8 +12,8 @@ engine = sqlalchemy.create_engine(
     'postgresql://hayden:Hawksnest449$@localhost/iom_site')
 
 class Leontief(Dataset):
-    def __init__(self, level, year, sql):
-        super(Leontief, self).__init__(level, year, sql)
+    def __init__(self, level, year, sql=True):
+        super(Leontief, self).__init__(level, year, sql=sql)
         # ^ use_matrix, make_matrix,
         # commodity_vector, industry_vector
         # value_vector, demand_vector, noncomp_vector

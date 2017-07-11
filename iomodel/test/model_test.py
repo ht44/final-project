@@ -38,14 +38,14 @@ class TestYear(object):
     def test_identity(self, single_year):
         assert len(single_year.econ.identity) == single_year.test_derivations.commodity_count
         assert len(single_year.econ.identity[0]) == single_year.test_derivations.commodity_count
-
+    @pytest.mark.skip()
     def test_industry_legend(self, single_year):
         assert len(single_year.econ.industry_legend) == single_year.test_derivations.industry_count
         if single_year.test_derivations.industry_count == 15:
             assert single_year.econ.industry_legend[0] == 'Agriculture, forestry, fishing, and hunting'
         elif single_year.test_derivations.industry_count == 71:
             assert single_year.econ.industry_legend[0] == 'Farms'
-
+    @pytest.mark.skip()
     def test_commodity_legend(self, single_year):
         assert len(single_year.econ.commodity_legend) == single_year.test_derivations.commodity_count
         if single_year.test_derivations.commodity_count == 17:
@@ -170,13 +170,14 @@ class TestYear(object):
         np.testing.assert_allclose(asserted, expected, rtol=1e-2)
 
     # helper methods
-
+    @pytest.mark.skip()
     def test_get_x(self, single_year):
         if single_year.test_derivations.industry_count == 15:
             assert single_year.econ.get_x('Agriculture, forestry, fishing, and hunting') == 0
         elif single_year.test_derivations.industry_count == 71:
             assert single_year.econ.get_x('Farms') == 0
 
+    @pytest.mark.skip()
     def test_get_y(self, single_year):
         if single_year.test_derivations.commodity_count == 17:
             assert single_year.econ.get_y('Agriculture, forestry, fishing, and hunting') == 0
@@ -186,7 +187,7 @@ class TestYear(object):
         last_item = 'Noncomparable imports and rest-of-the-world adjustment [1]'
         assert single_year.econ.get_y(last_item) == single_year.test_derivations.commodity_count - 1
         assert single_year.econ.get_y(penult_item) == single_year.test_derivations.commodity_count - 2
-
+    @pytest.mark.skip()
     def test_process_args(self, single_year):
         names = single_year.econ.commodity_legend
         nums = [i for i in range(single_year.test_derivations.commodity_count)]

@@ -23,15 +23,15 @@ class ModelFixture:
         self.commodity_count = None
         self.test_derivations = Taggable()
         self.test_derivations.demand_vector = pd.read_pickle(
-            os.path.join('model/pickles', self.level, self.year, 'demand.pkl')).as_matrix().astype('float')
+            os.path.join('iomodel/pickles', self.level, self.year, 'demand.pkl')).as_matrix().astype('float')
         self.test_derivations.market_share_matrix = pd.read_pickle(
-            os.path.join('model/test/bea_derivations', self.level, self.year, 'market.pkl')).as_matrix().astype('float')
+            os.path.join('iomodel/test/bea_derivations', self.level, self.year, 'market.pkl')).as_matrix().astype('float')
         self.test_derivations.direct_req_matrix = pd.read_pickle(
-            os.path.join('model/test/bea_derivations', self.level, self.year, 'direct.pkl')).as_matrix().astype('float')
+            os.path.join('iomodel/test/bea_derivations', self.level, self.year, 'direct.pkl')).as_matrix().astype('float')
         self.test_derivations.total_req_matrix = pd.read_pickle(
-            os.path.join('model/test/bea_derivations', self.level, self.year, 'total.pkl')).as_matrix().astype('float')
+            os.path.join('iomodel/test/bea_derivations', self.level, self.year, 'total.pkl')).as_matrix().astype('float')
         self.test_derivations.output_req_vector = pd.read_pickle(
-            os.path.join('model/test/bea_derivations', self.level, self.year, 'output.pkl')).as_matrix()[0].astype('float')
+            os.path.join('iomodel/test/bea_derivations', self.level, self.year, 'output.pkl')).as_matrix()[0].astype('float')
 
         if level == 'sector':
             self.test_derivations.industry_count = 15
@@ -40,7 +40,7 @@ class ModelFixture:
             self.test_derivations.industry_count = 71
             self.test_derivations.commodity_count = 73
 
-        self.econ = Leontief(self.level, self.year)
+        self.econ = Leontief(self.level, self.year, sql=True)
 
     def gen_random_model(self):
 

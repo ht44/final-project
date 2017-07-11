@@ -1,11 +1,17 @@
 .DS_Store
-model/.DS_Store
-model/pickles/.DS_Store
-model/test/.DS_Store
+iomodel/.DS_Store
+iomodel/pickles/.DS_Store
+iomodel/test/.DS_Store
+
 
 .cache/
-model/__pycache__/
-model/test/__pycache__/
-model/test/model/__pycache__/
-model/test/global/__pycache__/
+*.pyc
+iomodel/__pycache__/
+iomodel/test/__pycache__/
 temp/
+
+iomsite/__pycache__/
+iomsite/secrets.py
+
+dash/__pycache__/
+dash/migrations/__pycache__/

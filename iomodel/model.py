@@ -2,12 +2,18 @@
 import numpy as np
 from copy import deepcopy
 from types import MethodType
-from model import data
+from iomodel import data
+import pandas as pd
 Dataset = data.Dataset
 
+import sqlalchemy
+
+engine = sqlalchemy.create_engine(
+    'postgresql://hayden:Hawksnest449$@localhost/iom_site')
+
 class Leontief(Dataset):
-    def __init__(self, level, year):
-        super(Leontief, self).__init__(level, year)
+    def __init__(self, level, year, sql):
+        super(Leontief, self).__init__(level, year, sql)
         # ^ use_matrix, make_matrix,
         # commodity_vector, industry_vector
         # value_vector, demand_vector, noncomp_vector

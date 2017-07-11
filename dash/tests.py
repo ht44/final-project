@@ -9,6 +9,7 @@ class DashApiIndexTest(TestCase):
     @classmethod
     def setUpClass(cls):
         cls.econ = m.Leontief('sector', '2015', sql=True)
+        cls.econ.balance()
         cls.response = client.get('/dash/')
         cls.parsed = cls.response.json()
 

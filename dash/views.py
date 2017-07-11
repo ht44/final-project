@@ -5,6 +5,7 @@ import json
 
 def index(request):
     econ = m.Leontief('sector', '2015', sql=True)
+    econ.balance()
     resp = {
         'level': 'sector',
         'year': 2015,
@@ -14,7 +15,14 @@ def index(request):
         'commodity_vector': econ.commodity_vector.tolist(),
         'value_vector': econ.value_vector.tolist(),
         'demand_vector': econ.demand_vector.tolist(),
-        'noncomp_vector': econ.noncomp_vector.tolist()}
+        'noncomp_vector': econ.noncomp_vector.tolist(),
+        'direct_req': econ.direct_req.tolist(),
+        'market_share': econ.market_share.tolist(),
+        'leontief_inverse': econ.leontief_inverse.tolist(),
+        'total_requirements': econ.total_requirements.tolist(),
+        'unit_requirements': econ.unit_requirements.tolist(),
+        'unit_price': econ.unit_price.tolist(),
+        }
     return HttpResponse(json.dumps(resp), content_type='application/json')
 
 def filter(request, level, year):

@@ -40,6 +40,7 @@ class DashApiFilterTest(TestCase):
         cls.level = 'sector'
         cls.year = 2015
         cls.econ = m.Leontief(cls.level, str(cls.year), sql=True)
+        cls.econ.balance()
         cls.response = client.get(f'/dash/{cls.level}/{cls.year}/')
         cls.parsed = cls.response.json()
 
@@ -66,3 +67,9 @@ class DashApiFilterTest(TestCase):
                          self.econ.demand_vector.tolist())
         self.assertEqual(self.parsed['noncomp_vector'],
                          self.econ.noncomp_vector.tolist())
+        self.assertEqual(self.parsed['direct_req'], self.econ.direct_req.tolist())
+        self.assertEqual(self.parsed['market_share'], self.econ.market_share.tolist())
+        self.assertEqual(self.parsed['leontief_inverse'], self.econ.leontief_inverse.tolist())
+        self.assertEqual(self.parsed['total_requirements'], self.econ.total_requirements.tolist())
+        self.assertEqual(self.parsed['unit_requirements'], self.econ.unit_requirements.tolist())
+        self.assertEqual(self.parsed['unit_price'], self.econ.unit_price.tolist())

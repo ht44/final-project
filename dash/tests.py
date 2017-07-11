@@ -43,20 +43,20 @@ class DashApiIndexTest(TestCase):
 class DashApiFilterTest(TestCase):
     @classmethod
     def setUpClass(cls):
-        level = 'sector'
-        year = '2015'
-        cls.econ = m.Leontief(level, year, sql=True)
-        cls.response = client.get(f'/dash/{level}/{year}')
+        cls.level = 'sector'
+        cls.year = 2015
+        cls.econ = m.Leontief(cls.level, str(cls.year), sql=True)
+        cls.response = client.get(f'/dash/{cls.level}/{cls.year}/')
         cls.parsed = cls.response.json()
 
     @classmethod
     def tearDownClass(cls):
+        del cls.level
+        del cls.year
         del cls.econ
         del cls.response
         del cls.parsed
 
     def test_dash_filter_resp(self):
-        response = client.get('/dash/sector/2015/')
-        parsed = response.json()
-        self.assertEqual(self.parsed['level'], level)
-        self.assertEqual(self.parsed['year'], year)
+        self.assertEqual(self.parsed['level'], self.level)
+        self.assertEqual(self.parsed['year'], self.year)

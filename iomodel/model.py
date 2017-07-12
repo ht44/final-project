@@ -6,11 +6,6 @@ from iomodel import data
 import pandas as pd
 Dataset = data.Dataset
 
-import sqlalchemy
-
-engine = sqlalchemy.create_engine(
-    'postgresql://hayden:Hawksnest449$@localhost/iom_site')
-
 class Leontief(Dataset):
     def __init__(self, level, year, sql=True):
         super(Leontief, self).__init__(level, year, sql=sql)

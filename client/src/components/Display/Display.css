@@ -1,0 +1,7 @@
+.Display {
+  width: 200px;
+  height: 200px;
+  overflow: scroll;
+  border: 3px outset grey;
+  align-self: flex-start;
+}

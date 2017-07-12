@@ -50,7 +50,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'client.middleware.dev_cors_middleware'
 ]
+
+# dev only
+# MIDDLEWARE.append('client.middleware.dev_cors_middleware')
 
 ROOT_URLCONF = 'iomsite.urls'
 

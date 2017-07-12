@@ -7,7 +7,6 @@ class BarChart extends Component {
    super(props)
     this.createBarChart = this.createBarChart.bind(this)
     this.updateBarChart = this.updateBarChart.bind(this)
-    this.state = {}
   }
 
   componentDidMount() {
@@ -19,28 +18,30 @@ class BarChart extends Component {
   }
 
   createBarChart() {
+
     const node = this.node
     const dataMax = d3.max(this.props.data)
     const dataMin = d3.min(this.props.data)
+
     const yScale = d3.scaleLinear()
-      .domain([0, dataMax])
-      .range([0, this.props.height / 2])
+                     .domain([0, dataMax])
+                     .range([0, this.props.height / 2])
 
-      const xScale = d3.scaleBand()
-        .domain(this.props.data.map(function(d, i) { return i; }))
-        .range([0, this.props.width])
+    const xScale = d3.scaleBand()
+                     .domain(this.props.data.map(function(d, i) { return i; }))
+                     .range([0, this.props.width])
 
-    const sScale = d3.scaleLinear()
-      .domain([dataMax, 0])
-      .range([0, this.props.height / 2])
+    const ryScale = d3.scaleLinear()
+                     .domain([dataMax, 0])
+                     .range([0, this.props.height / 2])
 
+    d3.select(node).style('border', '1px solid black')
 
     d3.select(node)
       .selectAll('rect')
       .data(this.props.data)
       .enter()
       .append('rect')
-      // .attr('width', xScale.bandwidth())
 
     d3.select(node)
       .selectAll('rect')
@@ -55,17 +56,16 @@ class BarChart extends Component {
       .attr('x', (d, i) => i * (this.props.width / this.props.data.length))
       .attr('y', d => this.props.height - yScale(d))
       .attr('width', this.props.width / this.props.data.length - this.props.barPadding)
+      .attr('height', 0)
+      .transition()
       .attr('height', d => yScale(d))
-      // .on('mouseover', function(d){
-      //     d3.select(this)
-      //       .style("opacity", 0.2)})
-
-    d3.select(node)
-      .style('border', '1px solid black')
+      .duration(2000)
 
 
-    const axis = d3.axisLeft(sScale)
-    axis.ticks(5, "1%")
+
+
+    const axis = d3.axisLeft(ryScale)
+    axis.ticks(8, "1%")
     // const xAxis = d3.axisBottom(xScale)
     // xAxis.ticks(17, 's')
 
@@ -81,21 +81,20 @@ class BarChart extends Component {
   }
 
   updateBarChart(prevProps) {
+
     const node = this.node
     const dataMax = d3.max(this.props.data)
     const yScale = d3.scaleLinear()
-      .domain([0, dataMax])
-      .range([0, this.props.height / 2])
-      console.log(prevProps.data.length);
+                     .domain([0, dataMax])
+                     .range([0, this.props.height / 2])
+
     if (this.props.data.length !== prevProps.data.length) {
-      console.log('doin');
+      console.log('special update');
+
       d3.select(node)
         .selectAll('rect')
         .data(this.props.data)
         .exit()
-        // .transition()
-        // .attr('height', '0')
-        // .duration(4000)
         .remove()
 
       d3.select(node)
@@ -111,7 +110,12 @@ class BarChart extends Component {
         .attr('x', (d, i) => i * (this.props.width / this.props.data.length))
         .attr('y', d => this.props.height - yScale(d))
         .attr('width', this.props.width / this.props.data.length - this.props.barPadding)
-        .attr('height', d => yScale(d))
+        .attr('height', 0)
+        .transition()
+        .attr('x', (d, i) => i * (this.props.width / this.props.data.length))
+        .attr('height',  d => yScale(d))
+        .duration(2000)
+
     } else {
 
       d3.select(node)
@@ -128,10 +132,14 @@ class BarChart extends Component {
   }
 
   render() {
-    return <svg className="BarChart"ref={node => this.node = node} width={500} height={500}>
-    </svg>
+    return(
+      <svg
+        className="BarChart"
+        ref={node => this.node = node}
+        width={500}
+        height={500}>
+      </svg>
+    )
   }
-
 }
-
 export default BarChart

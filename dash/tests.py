@@ -73,3 +73,27 @@ class DashApiFilterTest(TestCase):
         self.assertEqual(self.parsed['total_requirements'], self.econ.total_requirements.tolist())
         self.assertEqual(self.parsed['unit_requirements'], self.econ.unit_requirements.tolist())
         self.assertEqual(self.parsed['unit_price'], self.econ.unit_price.tolist())
+
+class DashApiGetParamTest(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.level = 'sector'
+        cls.year = 2015
+        cls.econ = m.Leontief(cls.level, str(cls.year), sql=True)
+        cls.econ.balance()
+        cls.econ.model_price([(0, 0.5), (1, 0.2), (2, 0.7)])
+        cls.response = client.get(f'/dash/{cls.level}/{cls.year}/', {
+            '0': '0.5',
+            '1': '0.2',
+            '2': '0.7',
+            'tax': 'true'
+        })
+        cls.parsed = cls.response.json()
+
+    @classmethod
+    def tearDownClass(cls):
+        del cls
+
+    def test_dash_get_params(self):
+        expected = self.econ.rel_unit_price.tolist()
+        self.assertEqual(self.parsed['rel_unit_price'], expected)

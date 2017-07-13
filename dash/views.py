@@ -4,7 +4,7 @@ from iomodel import model as m
 import decimal
 import json
 
-deci = decimal.Decimal
+Decimal = decimal.Decimal
 decimal.getcontext().prec = 1
 
 def index(request):
@@ -30,7 +30,16 @@ def index(request):
     return HttpResponse(json.dumps(resp), content_type='application/json')
 
 def filter(request, level, year):
+
     print(request.GET)
+
+    def is_int(s):
+        try:
+            int(s)
+            return True
+        except ValueError:
+            return False
+
     econ = m.Leontief(level, year, sql=True)
     econ.balance()
     resp = {
@@ -51,13 +60,15 @@ def filter(request, level, year):
         'unit_price': econ.unit_price.tolist(),
         }
 
-    if request.GET.get('tax', False) == 'true':
-        x = deci(request.GET.get('0'))
-        y = deci(request.GET.get('1'))
-        z = deci(request.GET.get('2'))
 
-        econ.model_price([(0, x), (1, y), (2, z)])
+    if request.GET.__contains__('arg'):
 
-        resp['rel_unit_price'] = econ.rel_unit_price.tolist()
+        args = request.GET.copy()
+        arg_type = args.__getitem__('arg')
+
+        if arg_type == 'tax':
+            args = [(int(a), float(b)) for a, b in args.items() if is_int(a)]
+            econ.model_price(args)
+            resp['rel_unit_price'] = econ.rel_unit_price.tolist()
 
     return HttpResponse(json.dumps(resp), content_type='application/json')

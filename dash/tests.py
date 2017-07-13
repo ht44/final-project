@@ -86,7 +86,7 @@ class DashApiGetParamTest(TestCase):
             '0': '0.5',
             '1': '0.2',
             '2': '0.7',
-            'tax': 'true'
+            'arg': 'tax'
         })
         cls.parsed = cls.response.json()
 

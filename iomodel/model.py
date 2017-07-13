@@ -146,7 +146,7 @@ class Leontief(Dataset):
         y = x.transpose()
         z = np.ones((len(use_matrix), 1))
         q = np.dot(y, z)
-        return q
+        return q.flatten()
 
     def derive_rel_coefficient(
         self, value_coefficient, tax_coefficient):

@@ -31,8 +31,6 @@ def index(request):
 
 def filter(request, level, year):
 
-    print(request.GET)
-
     def is_int(s):
         try:
             int(s)
@@ -40,7 +38,7 @@ def filter(request, level, year):
         except ValueError:
             return False
 
-    econ = m.Leontief(level, year, sql=True)
+    econ = m.Leontief(level, year, sql=False)
     econ.balance()
     resp = {
         'level': level,
@@ -66,9 +64,10 @@ def filter(request, level, year):
         args = request.GET.copy()
         arg_type = args.__getitem__('arg')
 
-        if arg_type == 'tax':
-            args = [(int(a), float(b)) for a, b in args.items() if is_int(a)]
-            econ.model_price(args)
-            resp['rel_unit_price'] = econ.rel_unit_price.tolist()
-
+        args = [(int(a), float(b)) for a, b in args.items() if is_int(a)]
+        print(args)
+        econ.model_price(args)
+        print(econ.rel_unit_price)
+        print(econ.unit_price)
+        resp['rel_unit_price'] = econ.rel_unit_price.tolist()
     return HttpResponse(json.dumps(resp), content_type='application/json')

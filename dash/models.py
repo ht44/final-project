@@ -2,6 +2,14 @@ from django.db import models
 
 # Create your models here.
 
+class Legend(models.Model):
+    name = models.CharField(max_length=80)
+    level = models.CharField(max_length=30)
+    index = models.IntegerField()
+    def __str__(self):
+        return str(self.val)
+
+
 class SectorUse(models.Model):
     col = models.IntegerField()
     row = models.IntegerField()

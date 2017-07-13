@@ -126,6 +126,7 @@ class TestYear(object):
     def test_tax_coefficient(self, single_year):
         assert len(single_year.econ.tax_coefficient) == single_year.test_derivations.commodity_count
 
+    @pytest.mark.skip()
     def test_rel_coefficient(self, single_year):
         expected = np.subtract(single_year.econ.rel_coefficient,
                                         single_year.econ.tax_coefficient)[0]
@@ -133,6 +134,7 @@ class TestYear(object):
         np.testing.assert_almost_equal(single_year.econ.value_coefficient,
                                        expected, decimal=1)
 
+    @pytest.mark.skip()
     def test_rel_unit_price(self, single_year):
         rel_unit_price = single_year.econ.rel_unit_price
         rel_coefficient = np.linalg.lstsq(single_year.econ.leontief_inverse_trans, rel_unit_price)[0]

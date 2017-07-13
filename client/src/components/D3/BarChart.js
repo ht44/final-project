@@ -69,10 +69,10 @@ class BarChart extends Component {
     // const xAxis = d3.axisBottom(xScale)
     // xAxis.ticks(17, 's')
 
-    d3.select(node).append("g")
-      .attr('class', 'axis')
-      .attr("transform", "translate(30,250)")
-      .call(axis)
+    // d3.select(node).append("g")
+    //   .attr('class', 'axis')
+    //   .attr("transform", "translate(30,250)")
+    //   .call(axis)
     // d3.select(node).append("g")
     //   .attr('class', 'axis')
     //   .attr("transform", "translate(0,480)")
@@ -83,10 +83,10 @@ class BarChart extends Component {
   updateBarChart(prevProps) {
 
     const node = this.node
-    const dataMax = d3.max(this.props.data)
+    const dataMin = d3.min(this.props.data)
     const yScale = d3.scaleLinear()
-                     .domain([0, dataMax])
-                     .range([0, this.props.height / 2])
+                     .domain([0, dataMin])
+                      .range([0, this.props.height / 2])
 
     if (this.props.data.length !== prevProps.data.length) {
       console.log('special update');

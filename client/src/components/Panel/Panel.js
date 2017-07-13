@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Control from '../Control/Control'
-import Toggle from '../Toggle/Toggle'
+import Control from '../Control/Control';
+import Form from '../Control/Form';
+import Toggle from '../Toggle/Toggle';
 import './Panel.css'
 
 class Panel extends Component {
@@ -11,6 +12,7 @@ class Panel extends Component {
     this.state = {
       values: '',
       level: 'sector',
+      year: '2015'
     };
   }
 
@@ -40,8 +42,10 @@ class Panel extends Component {
 
   render() {
     const level = this.state.level
+    const year = this.state.year
     return (
       <div className="Panel">
+        <Form level={level} year={year} relative={this.props.relative}/>
         <Toggle level={level} onClick={this.changeLevel}/>
         <Control level={level} year='1997' onClick={this.xhRequest} handler={this.props.populate} />
         <Control level={level} year='1998' onClick={this.xhRequest} handler={this.props.populate} />

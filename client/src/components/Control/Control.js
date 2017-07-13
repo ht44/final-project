@@ -3,7 +3,9 @@ import './Control.css'
 
 function Control(props) {
   return(
-    <button className="Control" onClick={() => props.onClick(props.level, props.year, props.handler)}>
+    <button
+      className="Control"
+      onClick={() => props.onClick(props.level, props.year, props.handler, props.update)}>
       {props.year}
     </button>
   )

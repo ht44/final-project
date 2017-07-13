@@ -7,7 +7,7 @@ class Legend(models.Model):
     level = models.CharField(max_length=30)
     index = models.IntegerField()
     def __str__(self):
-        return str(self.val)
+        return str(self.name)
 
 
 class SectorUse(models.Model):

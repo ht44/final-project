@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from iomodel import model as m
+from dash.models import Legend
 import decimal
 import json
 
@@ -26,8 +27,16 @@ def index(request):
         'total_requirements': econ.total_requirements.tolist(),
         'unit_requirements': econ.unit_requirements.tolist(),
         'unit_price': econ.unit_price.tolist(),
+        'legend': [rec.name for rec in Legend.objects.filter(level='sector')]
         }
+
+    # leg =
+    # print(leg)
+    #
+    # resp['legend'] = leg
     return HttpResponse(json.dumps(resp), content_type='application/json')
+
+
 
 def filter(request, level, year):
 
@@ -38,7 +47,7 @@ def filter(request, level, year):
         except ValueError:
             return False
 
-    econ = m.Leontief(level, year, sql=False)
+    econ = m.Leontief(level, year, sql=True)
     econ.balance()
     resp = {
         'level': level,
@@ -56,6 +65,7 @@ def filter(request, level, year):
         'total_requirements': econ.total_requirements.tolist(),
         'unit_requirements': econ.unit_requirements.tolist(),
         'unit_price': econ.unit_price.tolist(),
+        'legend': [rec.name for rec in Legend.objects.filter(level=level)]
         }
 
 
@@ -65,9 +75,9 @@ def filter(request, level, year):
         arg_type = args.__getitem__('arg')
 
         args = [(int(a), float(b)) for a, b in args.items() if is_int(a)]
-        print(args)
+        # print(args)
         econ.model_price(args)
-        print(econ.rel_unit_price)
-        print(econ.unit_price)
+        # print(econ.rel_unit_price)
+        # print(econ.unit_price)
         resp['rel_unit_price'] = econ.rel_unit_price.tolist()
     return HttpResponse(json.dumps(resp), content_type='application/json')

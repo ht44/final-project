@@ -42,6 +42,9 @@ class BarChart extends Component {
       .data(this.props.data)
       .enter()
       .append('rect')
+      .on('mouseover', (data, i) => {
+        this.props.handleHover(i)
+      })
 
     d3.select(node)
       .selectAll('rect')

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Control from '../Control/Control';
 import Form from '../Control/Form';
 import Toggle from '../Toggle/Toggle';
+import Display from '../Display/Display'
 import './Panel.css'
 
 class Panel extends Component {
@@ -43,10 +44,13 @@ class Panel extends Component {
   render() {
     const level = this.state.level
     const year = this.state.year
+    const legend = this.props.legend
     return (
       <div className="Panel">
-        <Form level={level} year={year} relative={this.props.relative}/>
-        <Toggle level={level} onClick={this.changeLevel}/>
+        <Display>
+          <Form current={this.props.current} level={level} year={year} relative={this.props.relative} legend={legend}/>
+        </Display>
+          <Toggle level={level} onClick={this.changeLevel}/>
         <Control level={level} year='1997' onClick={this.xhRequest} handler={this.props.populate} />
         <Control level={level} year='1998' onClick={this.xhRequest} handler={this.props.populate} />
         <Control level={level} year='1999' onClick={this.xhRequest} handler={this.props.populate} />

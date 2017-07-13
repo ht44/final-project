@@ -36,7 +36,7 @@ class Seed:
                     'Scrap, used and secondhand goods',
                     'Noncomparable imports and rest-of-the-world adjustment']
 
-        else:
+        elif level == 'summary':
             names = ['Farms', 'Forestry, fishing, and related activities',
                        'Oil and gas extraction', 'Mining, except oil and gas',
                        'Support activities for mining', 'Utilities', 'Construction',
@@ -87,11 +87,10 @@ class Seed:
                        'Scrap, used and secondhand goods',
                        'Noncomparable imports and rest-of-the-world adjustment']
 
-        # Legend.objects.all().delete()
         for i in range(len(names)):
             newrec = Legend(name=names[i], index=i, level=level)
             newrec.save()
-        del newrec
+        # del newrec
 
 
 

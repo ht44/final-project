@@ -1,7 +1,8 @@
 .Display {
   width: 200px;
   height: 200px;
+  position: absolute;
+  left: 25px;
   overflow: scroll;
   border: 3px outset grey;
-  align-self: flex-start;
 }

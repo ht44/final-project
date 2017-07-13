@@ -1,23 +1,32 @@
 import React, { Component } from 'react';
 import Input from './Input';
 
-import './Input.css'
+import './Form.css'
 
 class Form extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {
+      values: Array.apply(null, Array(this.props.legend.length)).map(Number.prototype.valueOf,0),
+      legend: this.props.legend
+    };
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(ev) {
-    this.setState({value: ev.target.value})
+    const stateCopy = this.state.values.slice()
+    stateCopy[ev.target.name] = parseFloat(ev.target.value)
+    this.setState({values: stateCopy})
   }
 
   handleSubmit(ev) {
     const xhr = new XMLHttpRequest()
-    const url = `http://localhost:8000/dash/${this.props.level}/${this.props.year}/?${'0'}=${this.state.value}&${'1'}=${this.state.value}&${'2'}=${this.state.value}&arg=tax`
+    let url = `http://localhost:8000/dash/${this.props.level}/${this.props.year}/?`;
+    this.state.values.forEach((value, index) => {
+      url = url + index + '=' + value + '&';
+    })
+    url += 'arg=tax';
     xhr.open('GET', url)
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
@@ -33,13 +42,14 @@ class Form extends Component {
     ev.preventDefault()
   }
   render() {
+    console.log('current', this.props.current);
+    const inputs = this.props.legend.map((item, i) =>
+      <Input value={0} legend={item} key={i} name={i} handleChange={this.handleChange}/>
+    )
     return (
       <form className="Form" onSubmit={this.handleSubmit}>
-        <label>
-          Num:
-          <input type="number" min="0" max="5" step="0.01" value={this.state.value} onChange={this.handleChange}/>
-        </label>
-        <input type="submit" value="Submit"/>
+        {inputs}
+        <input type="submit" />
       </form>
     )
   };

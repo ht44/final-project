@@ -3,9 +3,13 @@ import os
 import pandas as pd
 
 import sqlalchemy
+from sqlalchemy.orm import sessionmaker
 
 engine = sqlalchemy.create_engine(
     'postgresql://hayden:passworddev@localhost/iom_site')
+
+Session = sessionmaker(bind=engine)
+session = Session()
 
 class Dataset:
     def __init__(self, level='sector', year='2015', sql=True):
@@ -32,7 +36,6 @@ class Dataset:
         n = pd.read_sql(
             f'SELECT * FROM dash_{level}noncomp WHERE year={year}',
                 engine).pivot(index='row', columns='col', values='val')
-
 
         # else:
         #     u = pd.read_pickle(

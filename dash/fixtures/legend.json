@@ -1,0 +1,721 @@
+[{
+    "model": "dash.legend",
+    "pk": 215,
+    "fields": {
+        "name": "Agriculture, forestry, fishing, and hunting",
+        "level": "sector",
+        "index": 0
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 216,
+    "fields": {
+        "name": "Mining",
+        "level": "sector",
+        "index": 1
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 217,
+    "fields": {
+        "name": "Utilities",
+        "level": "sector",
+        "index": 2
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 218,
+    "fields": {
+        "name": "Construction",
+        "level": "sector",
+        "index": 3
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 219,
+    "fields": {
+        "name": "Manufacturing",
+        "level": "sector",
+        "index": 4
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 220,
+    "fields": {
+        "name": "Wholesale trade",
+        "level": "sector",
+        "index": 5
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 221,
+    "fields": {
+        "name": "Retail trade",
+        "level": "sector",
+        "index": 6
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 222,
+    "fields": {
+        "name": "Transportation and warehousing",
+        "level": "sector",
+        "index": 7
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 223,
+    "fields": {
+        "name": "Information",
+        "level": "sector",
+        "index": 8
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 224,
+    "fields": {
+        "name": "Finance, insurance, real estate, rental, and leasing",
+        "level": "sector",
+        "index": 9
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 225,
+    "fields": {
+        "name": "Professional and business services",
+        "level": "sector",
+        "index": 10
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 226,
+    "fields": {
+        "name": "Educational services, health care, and social assistance",
+        "level": "sector",
+        "index": 11
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 227,
+    "fields": {
+        "name": "Arts, entertainment, recreation, accommodation, and food services",
+        "level": "sector",
+        "index": 12
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 228,
+    "fields": {
+        "name": "Other services, except government",
+        "level": "sector",
+        "index": 13
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 229,
+    "fields": {
+        "name": "Government",
+        "level": "sector",
+        "index": 14
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 230,
+    "fields": {
+        "name": "Scrap, used and secondhand goods",
+        "level": "sector",
+        "index": 15
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 231,
+    "fields": {
+        "name": "Noncomparable imports and rest-of-the-world adjustment",
+        "level": "sector",
+        "index": 16
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 232,
+    "fields": {
+        "name": "Farms",
+        "level": "summary",
+        "index": 0
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 233,
+    "fields": {
+        "name": "Forestry, fishing, and related activities",
+        "level": "summary",
+        "index": 1
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 234,
+    "fields": {
+        "name": "Oil and gas extraction",
+        "level": "summary",
+        "index": 2
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 235,
+    "fields": {
+        "name": "Mining, except oil and gas",
+        "level": "summary",
+        "index": 3
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 236,
+    "fields": {
+        "name": "Support activities for mining",
+        "level": "summary",
+        "index": 4
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 237,
+    "fields": {
+        "name": "Utilities",
+        "level": "summary",
+        "index": 5
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 238,
+    "fields": {
+        "name": "Construction",
+        "level": "summary",
+        "index": 6
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 239,
+    "fields": {
+        "name": "Wood products",
+        "level": "summary",
+        "index": 7
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 240,
+    "fields": {
+        "name": "Nonmetallic mineral products",
+        "level": "summary",
+        "index": 8
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 241,
+    "fields": {
+        "name": "Primary metals",
+        "level": "summary",
+        "index": 9
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 242,
+    "fields": {
+        "name": "Fabricated metal products",
+        "level": "summary",
+        "index": 10
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 243,
+    "fields": {
+        "name": "Machinery",
+        "level": "summary",
+        "index": 11
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 244,
+    "fields": {
+        "name": "Computer and electronic products",
+        "level": "summary",
+        "index": 12
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 245,
+    "fields": {
+        "name": "Electrical equipment, appliances, and components",
+        "level": "summary",
+        "index": 13
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 246,
+    "fields": {
+        "name": "Motor vehicles, bodies and trailers, and parts",
+        "level": "summary",
+        "index": 14
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 247,
+    "fields": {
+        "name": "Other transportation equipment",
+        "level": "summary",
+        "index": 15
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 248,
+    "fields": {
+        "name": "Furniture and related products",
+        "level": "summary",
+        "index": 16
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 249,
+    "fields": {
+        "name": "Miscellaneous manufacturing",
+        "level": "summary",
+        "index": 17
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 250,
+    "fields": {
+        "name": "Food and beverage and tobacco products",
+        "level": "summary",
+        "index": 18
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 251,
+    "fields": {
+        "name": "Textile mills and textile product mills",
+        "level": "summary",
+        "index": 19
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 252,
+    "fields": {
+        "name": "Apparel and leather and allied products",
+        "level": "summary",
+        "index": 20
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 253,
+    "fields": {
+        "name": "Paper products",
+        "level": "summary",
+        "index": 21
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 254,
+    "fields": {
+        "name": "Printing and related support activities",
+        "level": "summary",
+        "index": 22
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 255,
+    "fields": {
+        "name": "Petroleum and coal products",
+        "level": "summary",
+        "index": 23
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 256,
+    "fields": {
+        "name": "Chemical products",
+        "level": "summary",
+        "index": 24
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 257,
+    "fields": {
+        "name": "Plastics and rubber products",
+        "level": "summary",
+        "index": 25
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 258,
+    "fields": {
+        "name": "Wholesale trade",
+        "level": "summary",
+        "index": 26
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 259,
+    "fields": {
+        "name": "Motor vehicle and parts dealers",
+        "level": "summary",
+        "index": 27
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 260,
+    "fields": {
+        "name": "Food and beverage stores",
+        "level": "summary",
+        "index": 28
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 261,
+    "fields": {
+        "name": "General merchandise stores",
+        "level": "summary",
+        "index": 29
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 262,
+    "fields": {
+        "name": "Other retail",
+        "level": "summary",
+        "index": 30
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 263,
+    "fields": {
+        "name": "Air transportation",
+        "level": "summary",
+        "index": 31
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 264,
+    "fields": {
+        "name": "Rail transportation",
+        "level": "summary",
+        "index": 32
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 265,
+    "fields": {
+        "name": "Water transportation",
+        "level": "summary",
+        "index": 33
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 266,
+    "fields": {
+        "name": "Truck transportation",
+        "level": "summary",
+        "index": 34
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 267,
+    "fields": {
+        "name": "Transit and ground passenger transportation",
+        "level": "summary",
+        "index": 35
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 268,
+    "fields": {
+        "name": "Pipeline transportation",
+        "level": "summary",
+        "index": 36
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 269,
+    "fields": {
+        "name": "Other transportation and support activities",
+        "level": "summary",
+        "index": 37
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 270,
+    "fields": {
+        "name": "Warehousing and storage",
+        "level": "summary",
+        "index": 38
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 271,
+    "fields": {
+        "name": "Publishing industries, except internet (includes software)",
+        "level": "summary",
+        "index": 39
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 272,
+    "fields": {
+        "name": "Motion picture and sound recording industries",
+        "level": "summary",
+        "index": 40
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 273,
+    "fields": {
+        "name": "Broadcasting and telecommunications",
+        "level": "summary",
+        "index": 41
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 274,
+    "fields": {
+        "name": "Data processing, internet publishing, and other information services",
+        "level": "summary",
+        "index": 42
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 275,
+    "fields": {
+        "name": "Federal Reserve banks, credit intermediation, and related activities",
+        "level": "summary",
+        "index": 43
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 276,
+    "fields": {
+        "name": "Securities, commodity contracts, and investments",
+        "level": "summary",
+        "index": 44
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 277,
+    "fields": {
+        "name": "Insurance carriers and related activities",
+        "level": "summary",
+        "index": 45
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 278,
+    "fields": {
+        "name": "Funds, trusts, and other financial vehicles",
+        "level": "summary",
+        "index": 46
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 279,
+    "fields": {
+        "name": "Housing",
+        "level": "summary",
+        "index": 47
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 280,
+    "fields": {
+        "name": "Other real estate",
+        "level": "summary",
+        "index": 48
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 281,
+    "fields": {
+        "name": "Rental and leasing services and lessors of intangible assets",
+        "level": "summary",
+        "index": 49
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 282,
+    "fields": {
+        "name": "Legal services",
+        "level": "summary",
+        "index": 50
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 283,
+    "fields": {
+        "name": "Computer systems design and related services",
+        "level": "summary",
+        "index": 51
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 284,
+    "fields": {
+        "name": "Miscellaneous professional, scientific, and technical services",
+        "level": "summary",
+        "index": 52
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 285,
+    "fields": {
+        "name": "Management of companies and enterprises",
+        "level": "summary",
+        "index": 53
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 286,
+    "fields": {
+        "name": "Administrative and support services",
+        "level": "summary",
+        "index": 54
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 287,
+    "fields": {
+        "name": "Waste management and remediation services",
+        "level": "summary",
+        "index": 55
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 288,
+    "fields": {
+        "name": "Educational services",
+        "level": "summary",
+        "index": 56
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 289,
+    "fields": {
+        "name": "Ambulatory health care services",
+        "level": "summary",
+        "index": 57
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 290,
+    "fields": {
+        "name": "Hospitals",
+        "level": "summary",
+        "index": 58
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 291,
+    "fields": {
+        "name": "Nursing and residential care facilities",
+        "level": "summary",
+        "index": 59
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 292,
+    "fields": {
+        "name": "Social assistance",
+        "level": "summary",
+        "index": 60
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 293,
+    "fields": {
+        "name": "Performing arts, spectator sports, museums, and related activities",
+        "level": "summary",
+        "index": 61
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 294,
+    "fields": {
+        "name": "Amusements, gambling, and recreation industries",
+        "level": "summary",
+        "index": 62
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 295,
+    "fields": {
+        "name": "Accommodation",
+        "level": "summary",
+        "index": 63
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 296,
+    "fields": {
+        "name": "Food services and drinking places",
+        "level": "summary",
+        "index": 64
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 297,
+    "fields": {
+        "name": "Other services, except government",
+        "level": "summary",
+        "index": 65
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 298,
+    "fields": {
+        "name": "Federal general government (defense)",
+        "level": "summary",
+        "index": 66
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 299,
+    "fields": {
+        "name": "Federal general government (nondefense)",
+        "level": "summary",
+        "index": 67
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 300,
+    "fields": {
+        "name": "Federal government enterprises",
+        "level": "summary",
+        "index": 68
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 301,
+    "fields": {
+        "name": "State and local general government",
+        "level": "summary",
+        "index": 69
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 302,
+    "fields": {
+        "name": "State and local government enterprises",
+        "level": "summary",
+        "index": 70
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 303,
+    "fields": {
+        "name": "Scrap, used and secondhand goods",
+        "level": "summary",
+        "index": 71
+    }
+}, {
+    "model": "dash.legend",
+    "pk": 304,
+    "fields": {
+        "name": "Noncomparable imports and rest-of-the-world adjustment",
+        "level": "summary",
+        "index": 72
+    }
+}]

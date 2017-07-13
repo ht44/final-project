@@ -30,10 +30,6 @@ def index(request):
         'legend': [rec.name for rec in Legend.objects.filter(level='sector')]
         }
 
-    # leg =
-    # print(leg)
-    #
-    # resp['legend'] = leg
     return HttpResponse(json.dumps(resp), content_type='application/json')
 
 

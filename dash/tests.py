@@ -1,13 +1,17 @@
 from django.test import TestCase
 from django.test import Client
+from django.core.management import call_command
 from iomodel import model as m
 import numpy as np
 
 client = Client()
 
 class DashApiIndexTest(TestCase):
+    fixtures = ['legend.json']
+
     @classmethod
     def setUpClass(cls):
+        call_command('loaddata', 'legend', app_label='dash')
         cls.econ = m.Leontief('sector', '2015', sql=True)
         cls.econ.balance()
         cls.response = client.get('/dash/')
@@ -34,10 +38,11 @@ class DashApiIndexTest(TestCase):
         self.assertEqual(self.parsed['unit_requirements'], self.econ.unit_requirements.tolist())
         self.assertEqual(self.parsed['unit_price'], self.econ.unit_price.tolist())
 
+
     def test_dash_index_has_legend(self):
         self.assertEqual(len(self.parsed['legend']), 17)
         self.assertEqual(self.parsed['legend'][0], 'Agriculture, forestry, fishing, and hunting')
-        self.assertEqual(self.parsed['legend'][8], 'Finance, insurance, real estate, rental, and leasing')
+        self.assertEqual(self.parsed['legend'][9], 'Finance, insurance, real estate, rental, and leasing')
         self.assertEqual(self.parsed['legend'][16], 'Noncomparable imports and rest-of-the-world adjustment')
 
 class DashApiFilterTest(TestCase):

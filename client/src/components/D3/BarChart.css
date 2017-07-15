@@ -1,5 +1,6 @@
 .BarChart {
-  margin-top: 50px;
+  /*margin-top: 50px;*/
+  /*align-self: flex-start;*/
 }
 
 .axis path,

@@ -1,52 +1,139 @@
 import React, { Component } from 'react';
 import Display from '../Display/Display'
-import Panel from '../Panel/Panel'
+import Form from '../Form/Form'
+import Console from '../Console/Console'
 import BarChart from '../D3/BarChart'
 import './Controller.css'
 
 class Controller extends Component {
   constructor(props) {
     super(props);
-    this.populate = this.populate.bind(this);
-    this.relative = this.relative.bind(this);
+
+    this.balance = this.balance.bind(this);
     this.handleHover = this.handleHover.bind(this);
+    this.changeModel = this.changeModel.bind(this);
+    this.showModel = this.showModel.bind(this);
+
     this.state = {
-      values: 'values displayed here',
-      data:  [1.0061641709544444, 1.0041627769347108, 1.0050611239464429, 1.0049726128179277, 1.0076491968781796, 1.004884935517597, 1.004580056289883, 1.0213202583986682, 1.0122195139985455, 1.0085797400333913, 1.0050652025534217, 1.0037229578137747, 1.0051803872114877, 1.0030223390437152, 1.0071376053912848, 1.0070243754971835, 1.0071392864379751],
-      current: 0,
+      data: [],
+      zeros: [],
+      legend: [],
+      current: 'Agriculture, forestry, fishing, and hunting',
+      model: false,
       width: 500,
       height: 500,
       barpad: 1,
-      legend: ['Agriculture, forestry, fishing, and hunting', 'Mining', 'Utilities', 'Construction', 'Manufacturing', 'Wholesale trade', 'Retail trade', 'Transportation and warehousing', 'Information', 'Finance, insurance, real estate, rental, and leasing', 'Professional and business services', 'Educational services, health care, and social assistance', 'Arts, entertainment, recreation, accommodation, and food services', 'Other services, except government', 'Government', 'Scrap, used and secondhand goods', 'Noncomparable imports and rest-of-the-world adjustment']
     };
+
   }
 
-  populate(payload) {
-    const data = JSON.parse(payload);
-    const unitPrice = data['unit_price']
+  aSyncXhr(level, year) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', `http://localhost:8000/dash/${level}/${year}/`)
+      xhr.onload = () => resolve(xhr.response)
+      xhr.onerror = () => resolve(xhr.statusText)
+      xhr.send();
+    })
+  }
+
+  componentDidMount() {
+    // console.log('CONTROLLERMOUNT--------');
+    this.aSyncXhr(this.props.level, this.props.year).then((resp) => {
+      this.balance(resp)
+    })
+  }
+
+  componentDidUpdate() {
+    // console.log('updated');
+  }
+
+  componentWillReceiveProps(newProps) {
+    console.log('propped');
+    console.log(newProps.level, newProps.year);
+    // console.log('depropped');
+    this.aSyncXhr(newProps.level, newProps.year).then(response => {
+      this.balance(response)
+    })
+  }
+
+  changeModel(){
+    this.setState((prevState, props) => {
+      return {model: !prevState.model}
+    })
+  }
+
+  showModel(parsed) {
+    const data = parsed
     const legend = data['legend']
-    this.setState({values: payload, data: unitPrice, legend: legend})
+    const zeros = Array.apply(null, Array(legend.length)).map(Number.prototype.valueOf,0);
+    this.setState({
+      zeros: zeros,
+      data: parsed['rel_unit_price'],
+      year: data['year'],
+      level: data['level'],
+      model: true
+    });
+  }
+
+  balance(payload) {
+    const data = JSON.parse(payload);
+    const legend = data['legend']
+    const zeros = Array.apply(null, Array(legend.length)).map(Number.prototype.valueOf,0);
+    this.setState({
+      zeros: zeros,
+      data: data['unit_price'],
+      legend: legend,
+      level: data['level'],
+      year: data['year']
+    })
   }
 
   handleHover(ev) {
     this.setState({current: ev})
   }
 
-  relative(arg) {
-    this.setState({data: arg})
-  }
+
 
   render() {
+    const year = this.state.year
+    const isModel = this.state.model
+    const level = this.state.level
     const current = this.state.current
-    const values = this.state.values
-    const data = this.state.data.map(d => d * 5)
+    const zeros = this.state.zeros
     const width = 500
     const height = 500
     const legend = this.state.legend
+
+    ///////////////
+    const data = this.state.data.map(d => d * 5)
+    ////////////////
+
     return(
       <div className="Controller">
-        <Panel current={current} populate={this.populate} relative={this.relative} legend={legend}/>
-        <BarChart handleHover={this.handleHover}data={data} height={height} width={width} barPadding={this.state.barpad}/>
+        <Console display={current} />
+
+        <Display key={year}>
+          <Form
+            model={this.showModel}
+            zeros={zeros}
+            current={this.props.current}
+            level={level}
+            year={year}
+            legend={legend}/>
+        </Display>
+
+        <BarChart
+          changeModel={this.changeModel}
+          model={isModel}
+          handleHover={this.handleHover}
+          year={year}
+          legend={legend}
+          data={data}
+          height={height}
+          width={width}
+          barPadding={this.state.barpad} />
+
       </div>
     )
   };

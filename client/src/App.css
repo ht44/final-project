@@ -1,5 +1,14 @@
 .App {
   text-align: center;
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  flex-flow: column wrap;
+}
+
+a {
+  color: green;
+  text-decoration: none;
 }
 
 .App-logo {
@@ -7,11 +16,38 @@
   height: 80px;
 }
 
+.App-List {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+.App-List > ul {
+  flex: auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.App-List > ul > li {
+  display: inline-block;
+}
+
+.router-selected {
+  color: white;
+}
+/*.not-selected {
+  color: white;
+}*/
+
+
+
 .App-header {
   background-color: #222;
-  height: 150px;
+  /*height: 150px;*/
+  width: 100%;
   padding: 20px;
   color: white;
+  flex: auto;
 }
 
 .App-intro {

@@ -1,0 +1,12 @@
+.Console {
+  /*width: 600px;*/
+  /*font-size: 20px;*/
+  /*flex: auto;*/
+  /*height: 50px;*/
+  font-size: 50px;
+  /*position: absolute;*/
+  /*left: 25px;*/
+  border-bottom: 2px outset grey;
+  width: 100%;
+  padding: 1em;
+}

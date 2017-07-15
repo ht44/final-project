@@ -1,5 +1,4 @@
 import './App.css';
-// import Control from './components/Control/Control'
 import React, { Component } from 'react';
 import Controller from './components/Controller/Controller';
 import { BrowserRouter as Router, Route, Redirect, Link, NavLink } from 'react-router-dom';
@@ -39,13 +38,14 @@ const YearNav = ({ match }) => {
       </li>
     );
 }
+console.log(match.url);
   return (
     <div className="App-List">
       <ul>
 
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/sector/2015">Sector</Link></li>
-        <li><Link to="/summary/2015">Summary</Link></li>
+        <li><NavLink to="/sector" activeClassName="router-selected">Sector</NavLink></li>
+        <li><NavLink to="/summary" activeClassName="router-selected">Summary</NavLink></li>
 
         {panels}
 
@@ -65,7 +65,16 @@ const SiteRouter = ({ location }) => {
     <Router>
       <div className="App-List">
         <Route exact path="/" render={() => (
-          <Redirect to='/sector/2015'/>
+          <div className="App-List">
+            <ul>
+              <li><NavLink to="/" activeClassName="router-selected">Home</NavLink></li>
+              <li><NavLink to="/sector" activeClassName="router-selected">Sector</NavLink></li>
+              <li><NavLink to="/summary" activeClassName="router-selected">Summary</NavLink></li>
+
+            </ul>
+
+          </div>
+          // <Redirect to='/sector/2015'/>
         )}/>
         {/* <Redirect from="/sector" to="sector/2015" /> */}
         {/* <Redirect from="/summary" to="summary/2015" /> */}

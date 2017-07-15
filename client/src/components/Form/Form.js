@@ -20,12 +20,12 @@ class Form extends Component {
   componentDidMount() {
     // this.reset()
 
-    console.log('FORM MOUNTEEEEEEE');
+    // console.log('FORM MOUNTEEEEEEE');
 
   }
 
   componentDidUpdate(nextProps) {
-    console.log('UPDATEEEEEE');
+    // console.log('UPDATEEEEEE');
     // this.setState({values: nextProps.zeros})
 
   }

@@ -24,7 +24,7 @@ class BarChart extends Component {
   }
 
   createBarChart() {
-    console.log('D3CREATE ---------------');
+    // console.log('D3CREATE ---------------');
     const legend = this.props.legend
     const node = this.node
     const dataMax = d3.max(this.props.data)
@@ -44,8 +44,9 @@ class BarChart extends Component {
     //                  .range([0, this.props.height / 2])
 
     d3.select(node)
-      .style('border', '1px solid black')
-      .attr('cursor', 'pointer')
+      .style('border', '1px solid white')
+      // .style('border-right', '4px solid black')
+      .attr('cursor', 'crosshair')
 
     d3.select(node)
     .selectAll('rect')
@@ -58,7 +59,8 @@ class BarChart extends Component {
       .data(this.props.data)
       .enter()
       .append('rect')
-      .style('fill', '#fe9922')
+      // .style('fill', '#fe9922')
+      .style('fill', '#ff004c')
       .attr('x', (d, i) => i * (this.props.width / this.props.data.length))
       .attr('y', d => this.props.height - yScale(d))
       .attr('width', this.props.width / this.props.data.length - this.props.barPadding)
@@ -67,18 +69,21 @@ class BarChart extends Component {
       .transition()
       .attr('height', d => yScale(d))
       .duration(2000)
-      // .on('end', function(data, i) {
-      //   console.log('over');
-      //   d3.select(this).on('mouseover', function(data, i) {
-      //           let x = d3.event.target.id
-      //           console.log(x);
-      //           handleHover(x);
-      //   });
-      // });
+      .on('end', function(data, i) {
+        console.log('over');
+        d3.select(this).on('mouseover', function(data, i) {
+          d3.select(this).attr('fill', '#fe9922')
+                let x = d3.event.target.id
+                // console.log(x);
+                // console.log('weenarweenwarr');
+
+                // handleHover(x);
+        });
+      });
   }
 
   updateBarChart(prevProps) {
-    console.log('d3update');
+    // console.log('d3update');
     // console.log('WE ARE UPDATING');
     const handleHover = this.props.handleHover
     const legend = this.props.legend
@@ -89,7 +94,7 @@ class BarChart extends Component {
                       .range([0, this.props.height / 2])
 
     if (this.props.data.length !== prevProps.data.length || this.props.year !== prevProps.year) {
-      console.log('WAS------------------');
+      // console.log('WAS------------------');
       this.props.changeModel()
       d3.select(node)
       .selectAll('rect')
@@ -107,7 +112,8 @@ class BarChart extends Component {
       d3.select(node)
         .selectAll('rect')
         .data(this.props.data)
-        .style('fill', '#fe9922')
+        // .style('fill', '#fe9922')
+        .style('fill', '#ff004c')
         .attr('id', (d, i) => legend[i])
         .attr('x', (d, i) => i * (this.props.width / this.props.data.length))
         .attr('y', d => this.props.height - yScale(d))
@@ -122,13 +128,17 @@ class BarChart extends Component {
           d3.select(this).on('mouseover', function(data, i) {
                   let x = d3.event.target.id
                   // console.log(x);
+                  // console.log('weenarweenwarr');
+
+                  d3.select(this).attr('fill', '#fe9922')
+
                   handleHover(x);
           });
         });
 
     } else if (this.props.model) {
       this.props.changeModel()
-      console.log('NOT-------------');
+      // console.log('NOT-------------');
       d3.select(node)
       .selectAll('rect')
       .data(this.props.data)
@@ -141,9 +151,14 @@ class BarChart extends Component {
       .on('end', function(data, i) {
         d3.select(this).on('mouseover', function(data, i) {
             let x = d3.event.target.id
+            d3.select(this).style('fill', '#00f2b1')
+            console.log('weenarweenwarr');
             // console.log(x);
             handleHover(x);
-        });
+        }).on('mouseout', function(data, i) {
+          d3.select(this).style('fill', '#ff004c')
+
+        })
       })
 
     }

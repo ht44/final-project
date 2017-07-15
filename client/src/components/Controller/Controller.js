@@ -113,15 +113,7 @@ class Controller extends Component {
       <div className="Controller">
         <Console display={current} />
 
-        <Display key={year}>
-          <Form
-            model={this.showModel}
-            zeros={zeros}
-            current={this.props.current}
-            level={level}
-            year={year}
-            legend={legend}/>
-        </Display>
+
 
         <BarChart
           changeModel={this.changeModel}
@@ -133,6 +125,16 @@ class Controller extends Component {
           height={height}
           width={width}
           barPadding={this.state.barpad} />
+
+        <Display key={year}>
+          <Form
+            model={this.showModel}
+            zeros={zeros}
+            current={this.props.current}
+            level={level}
+            year={year}
+            legend={legend}/>
+        </Display>
 
       </div>
     )

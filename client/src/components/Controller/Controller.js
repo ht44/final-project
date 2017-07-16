@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Display from '../Display/Display'
+import Scroll from '../Scroll/Scroll'
 import Form from '../Form/Form'
 import Console from '../Console/Console'
+import Button from '../Button/Button'
 import BarChart from '../D3/BarChart'
 import './Controller.css'
 
@@ -12,17 +13,22 @@ class Controller extends Component {
     this.balance = this.balance.bind(this);
     this.handleHover = this.handleHover.bind(this);
     this.changeModel = this.changeModel.bind(this);
-    this.showModel = this.showModel.bind(this);
+    this.showRelative = this.showRelative.bind(this);
+    this.restore = this.restore.bind(this);
+    this.buttonClick = this.buttonClick.bind(this)
+    this.changeValued = this.changeValued.bind(this)
+
 
     this.state = {
-      data: [],
-      zeros: [],
-      legend: [],
       current: 'Agriculture, forestry, fishing, and hunting',
+      data: [],
+      ones: [],
+      legend: [],
       model: false,
-      width: 500,
-      height: 500,
+      width: 1200,
+      height: 800,
       barpad: 1,
+      valued: false,
     };
 
   }
@@ -38,7 +44,7 @@ class Controller extends Component {
   }
 
   componentDidMount() {
-    // console.log('CONTROLLERMOUNT--------');
+    console.log('CONTROLLERMOUNT--------');
     this.aSyncXhr(this.props.level, this.props.year).then((resp) => {
       this.balance(resp)
     })
@@ -49,9 +55,7 @@ class Controller extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log('propped');
-    console.log(newProps.level, newProps.year);
-    // console.log('depropped');
+    console.log('propped', newProps.level, newProps.year);
     this.aSyncXhr(newProps.level, newProps.year).then(response => {
       this.balance(response)
     })
@@ -63,15 +67,37 @@ class Controller extends Component {
     })
   }
 
-  showModel(parsed) {
+  changeValued(){
+    this.setState((prevState, props) => {
+      return {valued: !prevState.valued}
+    })
+  }
+
+  buttonClick(ev) {
+    this.restore();
+    this.changeValued();
+  }
+
+  showRelative(parsed) {
     const data = parsed
     const legend = data['legend']
-    const zeros = Array.apply(null, Array(legend.length)).map(Number.prototype.valueOf,0);
+    // const zeros = Array.apply(null, Array(legend.length)).map(Number.prototype.valueOf,0);
     this.setState({
-      zeros: zeros,
+      // zeros: zeros,
       data: parsed['rel_unit_price'],
       year: data['year'],
       level: data['level'],
+      model: true
+    });
+  }
+  restore() {
+    const legend = this.state.legend;
+    const ones = Array.apply(null, Array(legend.length)).map(Number.prototype.valueOf,1);
+
+    this.setState({
+      data: ones,
+      year: this.state.year,
+      level: this.state.level,
       model: true
     });
   }
@@ -79,10 +105,11 @@ class Controller extends Component {
   balance(payload) {
     const data = JSON.parse(payload);
     const legend = data['legend']
-    const zeros = Array.apply(null, Array(legend.length)).map(Number.prototype.valueOf,0);
+    // const zeros = Array.apply(null, Array(legend.length)).map(Number.prototype.valueOf,0);
+    const ones = Array.apply(null, Array(legend.length)).map(Number.prototype.valueOf,1);
     this.setState({
-      zeros: zeros,
-      data: data['unit_price'],
+      // zeros: zeros,
+      data: ones,
       legend: legend,
       level: data['level'],
       year: data['year']
@@ -96,16 +123,23 @@ class Controller extends Component {
 
 
   render() {
-    const year = this.state.year
-    const isModel = this.state.model
-    const level = this.state.level
-    const current = this.state.current
-    const zeros = this.state.zeros
-    const width = 500
-    const height = 500
-    const legend = this.state.legend
 
-    ///////////////
+    const width = this.state.width;
+    const height = this.state.height;
+    const padding = this.state.barpad;
+
+    const year = this.state.year;
+    const model = this.state.model;
+    const level = this.state.level;
+    const valued = this.state.valued;
+
+    const isModel = this.state.model;
+    const current = this.state.current;
+
+    // const zeros = this.state.zeros;
+    const legend = this.state.legend;
+
+    ////////////////
     const data = this.state.data.map(d => d * 5)
     ////////////////
 
@@ -114,27 +148,35 @@ class Controller extends Component {
         <Console display={current} />
 
 
-
-        <BarChart
-          changeModel={this.changeModel}
-          model={isModel}
-          handleHover={this.handleHover}
-          year={year}
-          legend={legend}
-          data={data}
-          height={height}
-          width={width}
-          barPadding={this.state.barpad} />
-
-        <Display key={year}>
-          <Form
-            model={this.showModel}
-            zeros={zeros}
-            current={this.props.current}
-            level={level}
+        <div className="Graph">
+          <BarChart
+            changeModel={this.changeModel}
+            model={isModel}
+            handleHover={this.handleHover}
             year={year}
-            legend={legend}/>
-        </Display>
+            level={level}
+            legend={legend}
+            data={data}
+            height={height}
+            width={width}
+            barPadding={padding} />
+
+          <div className="Sidebar" style={{height: height}}>
+            <Button value={'restore'} handleClick={this.buttonClick} />
+
+            <Scroll key={year}>
+              <Form key={valued}
+                showRelative={this.showRelative}
+                buttonClick={this.buttonClick}
+                restore={this.restore}
+                current={this.props.current}
+                level={level}
+                year={year}
+                legend={legend}/>
+            </Scroll>
+          </div>
+
+        </div>
 
       </div>
     )

@@ -2,57 +2,45 @@ import React, { Component } from 'react';
 import './BarChart.css';
 import * as d3 from 'd3';
 
+// #fe9922
+
 class BarChart extends Component {
   constructor(props){
    super(props)
     this.createBarChart = this.createBarChart.bind(this)
     this.updateBarChart = this.updateBarChart.bind(this)
-    // this.state = {year: this.props.year}
   }
 
-  // shouldComponentUpdate(nextProps) {
-  //   console.log(this.state.year);
-  //   return nextProps.year !== this.state.year
-  // }
-
   componentDidMount() {
-    this.createBarChart()
+    this.createBarChart();
   }
 
   componentDidUpdate(prevProps) {
-    this.updateBarChart(prevProps)
+    this.updateBarChart(prevProps);
   }
 
   createBarChart() {
-    // console.log('D3CREATE ---------------');
+
+    console.log('D3CREATE ---------------');
+
     const legend = this.props.legend
     const node = this.node
-    const dataMax = d3.max(this.props.data)
-    // const dataMin = d3.min(this.props.data)
-    // const handleHover = this.props.handleHover
+    // const dataMax = d3.max(this.props.data)
+    const dataMin = d3.min(this.props.data)
 
     const yScale = d3.scaleLinear()
-                     .domain([0, dataMax])
+                     .domain([0, dataMin])
                      .range([0, this.props.height / 2])
 
-    // const xScale = d3.scaleBand()
-    //                  .domain(this.props.data.map(function(d, i) { return i; }))
-    //                  .range([0, this.props.width])
-    //
-    // const ryScale = d3.scaleLinear()
-    //                  .domain([dataMax, 0])
-    //                  .range([0, this.props.height / 2])
-
     d3.select(node)
-      .style('border', '1px solid white')
-      // .style('border-right', '4px solid black')
-      .attr('cursor', 'crosshair')
+      .style('border', '1px solid green')
+      .attr('cursor', 'cell')
 
-    d3.select(node)
-    .selectAll('rect')
-    .data(this.props.data)
-    .exit()
-    .remove()
+    // d3.select(node)
+    //   .selectAll('rect')
+    //   .data(this.props.data)
+    //   .exit()
+    //   .remove()
 
     d3.select(node)
       .selectAll('rect')
@@ -69,38 +57,29 @@ class BarChart extends Component {
       .transition()
       .attr('height', d => yScale(d))
       .duration(2000)
-      .on('end', function(data, i) {
-        console.log('over');
-        d3.select(this).on('mouseover', function(data, i) {
-          d3.select(this).attr('fill', '#fe9922')
-                let x = d3.event.target.id
-                // console.log(x);
-                // console.log('weenarweenwarr');
-
-                // handleHover(x);
-        });
-      });
   }
 
   updateBarChart(prevProps) {
-    // console.log('d3update');
-    // console.log('WE ARE UPDATING');
+
+    console.log('D3UPDATE ---------------');
+
     const handleHover = this.props.handleHover
     const legend = this.props.legend
     const node = this.node
     const dataMin = d3.min(this.props.data)
+    // const dataMax = d3.max(this.props.data)
     const yScale = d3.scaleLinear()
                      .domain([0, dataMin])
                       .range([0, this.props.height / 2])
 
-    if (this.props.data.length !== prevProps.data.length || this.props.year !== prevProps.year) {
-      // console.log('WAS------------------');
+    if (this.props.data.length !== prevProps.data.length || this.props.level !== prevProps.level) {
+      console.log('AAAAAAAAA ------------------');
       this.props.changeModel()
       d3.select(node)
-      .selectAll('rect')
-      .data(this.props.data)
-      .exit()
-      .remove()
+        .selectAll('rect')
+        .data(this.props.data)
+        .exit()
+        .remove()
 
       d3.select(node)
         .selectAll('rect')
@@ -108,11 +87,9 @@ class BarChart extends Component {
         .enter()
         .append('rect')
 
-
       d3.select(node)
         .selectAll('rect')
         .data(this.props.data)
-        // .style('fill', '#fe9922')
         .style('fill', '#ff004c')
         .attr('id', (d, i) => legend[i])
         .attr('x', (d, i) => i * (this.props.width / this.props.data.length))
@@ -124,21 +101,18 @@ class BarChart extends Component {
         .attr('height',  d => yScale(d))
         .duration(2000)
         .on('end', function(data, i) {
-          // console.log('over');
           d3.select(this).on('mouseover', function(data, i) {
                   let x = d3.event.target.id
-                  // console.log(x);
-                  // console.log('weenarweenwarr');
-
                   d3.select(this).attr('fill', '#fe9922')
-
                   handleHover(x);
           });
         });
 
-    } else if (this.props.model) {
+    }
+    if (this.props.model || this.props.year !== prevProps.year) {
       this.props.changeModel()
-      // console.log('NOT-------------');
+      console.log('BBBBBBBB -------------');
+
       d3.select(node)
       .selectAll('rect')
       .data(this.props.data)
@@ -149,17 +123,19 @@ class BarChart extends Component {
       .attr('height', d => yScale(d))
       .duration(2000)
       .on('end', function(data, i) {
-        d3.select(this).on('mouseover', function(data, i) {
+        d3.select(this)
+          .on('mouseover', function(data, i) {
+
             let x = d3.event.target.id
             d3.select(this).style('fill', '#00f2b1')
-            console.log('weenarweenwarr');
-            // console.log(x);
             handleHover(x);
+
         }).on('mouseout', function(data, i) {
+
           d3.select(this).style('fill', '#ff004c')
 
-        })
-      })
+        });
+      });
 
     }
   }
@@ -169,8 +145,8 @@ class BarChart extends Component {
       <svg
         className="BarChart"
         ref={node => this.node = node}
-        width={500}
-        height={500}>
+        width={this.props.width}
+        height={this.props.height}>
       </svg>
     )
   }

@@ -1,0 +1,6 @@
+.Scroll {
+  width: 100%;
+  flex: 9;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

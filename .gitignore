@@ -26,6 +26,7 @@ client/src/coverage
 client/src/build
 
 # misc
+client/__pycache__/
 client/src/.DS_Store
 client/src/.env.local
 client/src/.env.development.local

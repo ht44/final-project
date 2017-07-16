@@ -1,18 +1,19 @@
 import './App.css';
+import logo from './logo.svg';
 import React, { Component } from 'react';
 import Controller from './components/Controller/Controller';
-import { BrowserRouter as Router, Route, Redirect, Link, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
-function aSyncXhr(level, year) {
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', `http://localhost:8000/dash/${level}/${year}/`)
-    xhr.onload = () => resolve(xhr.response)
-    xhr.onerror = () => resolve(xhr.statusText)
-    xhr.send();
-  })
-}
-
+// function aSyncXhr(level, year) {
+//   return new Promise((resolve, reject) => {
+//     const xhr = new XMLHttpRequest();
+//     xhr.open('GET', `http://localhost:8000/dash/${level}/${year}/`)
+//     xhr.onload = () => resolve(xhr.response)
+//     xhr.onerror = () => resolve(xhr.statusText)
+//     xhr.send();
+//   })
+// }
 
 const Year = ({ match }) => {
   if (match.params.year) {
@@ -38,7 +39,7 @@ const YearNav = ({ match }) => {
       </li>
     );
 }
-console.log(match.url);
+console.log('MATCH.URL:', match.url);
   return (
     <div className="App-List">
       <ul>
@@ -79,6 +80,7 @@ const SiteRouter = ({ location }) => {
         {/* <Redirect from="/sector" to="sector/2015" /> */}
         {/* <Redirect from="/summary" to="summary/2015" /> */}
         <Route path="/:level" component={YearNav}/>
+        <img src={logo} className="App-logo" alt="logo" />
         <Route path="/:level/:year" component={Year}/>
 
 

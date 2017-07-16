@@ -13,63 +13,56 @@ class Form extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-
     this.state = formInit;
   }
 
-  componentDidMount() {
-    // this.reset()
-
-    // console.log('FORM MOUNTEEEEEEE');
-
-  }
-
-  componentDidUpdate(nextProps) {
-    // console.log('UPDATEEEEEE');
-    // this.setState({values: nextProps.zeros})
-
-  }
-  //
-  componentWillReceiveProps(nextProps) {
-    // this.setState({values: nextProps.zeros})
-  }
-
-
-
   handleChange(ev) {
-    const stateCopy = this.state.values.slice()
-    stateCopy[ev.target.name] = parseFloat(ev.target.value)
-    this.setState({values: stateCopy})
+    if (!Number.isNaN(parseFloat(ev.target.value))) {
+      const stateCopy = this.state.values.slice()
+      stateCopy[ev.target.name] = parseFloat(ev.target.value)
+      this.setState({values: stateCopy})
+    } else {
+      const stateCopy = this.state.values.slice()
+      stateCopy[ev.target.name] = 0;
+      this.setState({values: stateCopy})
+    }
   }
 
-  reset() {
-    this.setState({values: this.props.zeros});
-  }
 
   handleSubmit(ev) {
     const xhr = new XMLHttpRequest()
     let url = `http://localhost:8000/dash/${this.props.level}/${this.props.year}/?`;
     this.state.values.forEach((value, index) => {
-      if (value !== 0) {
+      if (value !== 0 && typeof value !== NaN ) {
         url = url + index + '=' + value + '&';
       }
     })
 
-    url += 'arg=tax';
-    console.log(url);
-    xhr.open('GET', url)
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          const parsed = JSON.parse(xhr.response)
-          this.props.model(parsed);
+    if (url[url.length - 1] === '&') {
+      url += 'arg=tax';
+      xhr.open('GET', url)
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            const parsed = JSON.parse(xhr.response)
+
+            if (parsed.hasOwnProperty('rel_unit_price')) {
+              this.props.showRelative(parsed);
+            }
+          }
         }
       }
+      console.log(url);
+      xhr.send()
+    } else {
+      this.props.restore();
+      console.log(url);
     }
-    xhr.send()
     ev.preventDefault()
-}
+  }
+
   render() {
+    console.log(this.state.values);
     const year = this.props.year
     const inputs = this.props.legend.map((item, i) =>
       <input

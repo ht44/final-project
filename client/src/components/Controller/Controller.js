@@ -17,20 +17,26 @@ class Controller extends Component {
     this.restore = this.restore.bind(this);
     this.buttonClick = this.buttonClick.bind(this)
     this.changeValued = this.changeValued.bind(this)
+    this.changeCurrent = this.changeCurrent.bind(this)
 
 
     this.state = {
       current: 'Agriculture, forestry, fishing, and hunting',
+      currentNum: 0,
       data: [],
       ones: [],
       legend: [],
       model: false,
-      width: 1200,
-      height: 800,
+      width: 1000,
+      height: 600,
       barpad: 1,
       valued: false,
     };
 
+  }
+
+  changeCurrent(ev) {
+    this.setState({currentNum: ev});
   }
 
   aSyncXhr(level, year) {
@@ -80,7 +86,8 @@ class Controller extends Component {
 
   showRelative(parsed) {
     const data = parsed
-    const legend = data['legend']
+    console.log('show relllllll');
+    // const legend = data['legend']
     // const zeros = Array.apply(null, Array(legend.length)).map(Number.prototype.valueOf,0);
     this.setState({
       // zeros: zeros,
@@ -117,19 +124,18 @@ class Controller extends Component {
   }
 
   handleHover(ev) {
-    this.setState({current: ev})
+    this.setState({current: ev.name, currentNum: ev.index})
   }
 
 
 
   render() {
-
     const width = this.state.width;
     const height = this.state.height;
     const padding = this.state.barpad;
 
     const year = this.state.year;
-    const model = this.state.model;
+    // const model = this.state.model;
     const level = this.state.level;
     const valued = this.state.valued;
 
@@ -140,7 +146,8 @@ class Controller extends Component {
     const legend = this.state.legend;
 
     ////////////////
-    const data = this.state.data.map(d => d * 5)
+    // const data = this.state.data.map(d => d * 5)
+    const data = this.state.data
     ////////////////
 
     return(
@@ -166,10 +173,11 @@ class Controller extends Component {
 
             <Scroll key={year}>
               <Form key={valued}
+                changeCurrent={this.changeCurrent}
                 showRelative={this.showRelative}
                 buttonClick={this.buttonClick}
                 restore={this.restore}
-                current={this.props.current}
+                current={this.state.currentNum}
                 level={level}
                 year={year}
                 legend={legend}/>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import './Form.css'
 
 const formInit = {
@@ -13,7 +14,27 @@ class Form extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.focus = this.focus.bind(this)
     this.state = formInit;
+  }
+
+
+  componentDidMount() {
+    // let x = ReactDOM.findDOMNode(this.refs[this.props.current])
+    // x.focus();
+  }
+
+  componentDidUpdate(prevProps, nextProps) {
+    console.log(this.props.current);
+    let x = ReactDOM.findDOMNode(this.refs[this.props.current])
+    x.focus();
+  }
+  componentWillReceiveProps(prevProps, nextProps) {
+    // console.log(nextProps);
+    // // console.log(ReactDOM.findDOMNode(this.refs[]));
+    // let x = ReactDOM.findDOMNode(this.refs[this.props.current])
+    // console.log(x);
+    // x.focus();
   }
 
   handleChange(ev) {
@@ -33,7 +54,7 @@ class Form extends Component {
     const xhr = new XMLHttpRequest()
     let url = `http://localhost:8000/dash/${this.props.level}/${this.props.year}/?`;
     this.state.values.forEach((value, index) => {
-      if (value !== 0 && typeof value !== NaN ) {
+      if (value !== 0) {
         url = url + index + '=' + value + '&';
       }
     })
@@ -61,11 +82,17 @@ class Form extends Component {
     ev.preventDefault()
   }
 
+  focus(ev) {
+    let newNum = parseInt(ev.target.name, 10);
+    this.props.changeCurrent(newNum);
+  }
+
+
   render() {
-    console.log(this.state.values);
     const year = this.props.year
     const inputs = this.props.legend.map((item, i) =>
       <input
+        ref={i}
         className="Input"
         type="number"
         min="0"
@@ -75,6 +102,7 @@ class Form extends Component {
         placeholder={item}
         name={i}
         onChange={this.handleChange}
+        onFocus={(ev) => this.focus(ev)}
       />
     )
 

@@ -27,8 +27,8 @@ class Controller extends Component {
       ones: [],
       legend: [],
       model: false,
-      width: 1000,
-      height: 600,
+      width: 1200,
+      height: 800,
       barpad: 1,
       valued: false,
     };

@@ -47,7 +47,7 @@ class BarChart extends Component {
     const axis = d3.axisRight(rScale)
                     .tickFormat(function(d) { return d + "%" })
                     .tickPadding(10)
-                    .ticks(10, '%')
+                    .ticks(10)
 
     const y_axis = d3.select(node)
                      .append("g")
@@ -76,6 +76,7 @@ class BarChart extends Component {
     d3.select(node)
       .call(d3.zoom()
               .scaleExtent([0, 1])
+              .translateExtent([[0, 0], [0, this.props.height]])
               .on("zoom", () => {
 
                  let newTScale = d3.event.transform.rescaleY(tScale);

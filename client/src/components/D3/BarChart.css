@@ -3,8 +3,17 @@
   /*align-self: flex-start;*/
 }
 
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis text {
+  fill: #fff;
+}
+
 .axis path,
 .axis line {
-    fill: none;
-    stroke: #000000;
+  fill: none;
+  stroke: #fff;
+  shape-rendering: crispEdges;
 }

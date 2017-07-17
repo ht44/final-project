@@ -25,7 +25,6 @@ class Form extends Component {
   }
 
   componentDidUpdate(prevProps, nextProps) {
-    console.log(this.props.current);
     let x = ReactDOM.findDOMNode(this.refs[this.props.current])
     x.focus();
   }

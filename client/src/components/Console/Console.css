@@ -3,12 +3,13 @@
   /*font-size: 20px;*/
   /*flex: auto;*/
   /*height: 50px;*/
-  font-size: 15px;
+  font-size: 20px;
   /*position: absolute;*/
   /*left: 25px;*/
   /*border-bottom: 1px dashed white;*/
   width: 90%;
   margin-bottom: 1em;
   padding: 1em;
+  text-align: right;
   overflow: hidden;
 }

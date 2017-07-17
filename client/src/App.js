@@ -46,9 +46,9 @@ console.log('MATCH.URL:', match.url);
       <ul>
 
         <li><Link to="/">Home</Link></li>
-        <li><NavLink to="/sector" activeClassName="router-selected">Sector</NavLink></li>
         <li><NavLink to="/summary" activeClassName="router-selected">Summary</NavLink></li>
-
+        <li><NavLink to="/sector" activeClassName="router-selected">Sector</NavLink></li>
+        
         {panels}
 
       </ul>
@@ -70,16 +70,15 @@ const SiteRouter = ({ location }) => {
           <div className="App-List">
             <ul>
               <li><NavLink to="/" activeClassName="router-selected">Home</NavLink></li>
-              <li><NavLink to="/sector" activeClassName="router-selected">Sector</NavLink></li>
               <li><NavLink to="/summary" activeClassName="router-selected">Summary</NavLink></li>
+              <li><NavLink to="/sector" activeClassName="router-selected">Sector</NavLink></li>
 
             </ul>
 
           </div>
           // <Redirect to='/sector/2015'/>
         )}/>
-        {/* <Redirect from="/sector" to="sector/2015" /> */}
-        {/* <Redirect from="/summary" to="summary/2015" /> */}
+
         <Route path="/:level" component={YearNav}/>
         <img src={logo} className="App-logo" alt="logo" />
         <Route path="/:level/:year" component={Year}/>

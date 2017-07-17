@@ -8,7 +8,8 @@
   /*border-bottom: 0;*/
   border-bottom: 1px solid green;
   background-color: black;
-  color: white;
+  color: #00f2b1;
+  font-size: 15px;
   padding: 1em;
   padding-right: 0;
   cursor: cell;
@@ -26,5 +27,5 @@
 }
 
 .Button:active {
-  color: #00f2b1;
+  color: white;
 }

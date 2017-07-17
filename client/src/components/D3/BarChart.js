@@ -47,7 +47,7 @@ class BarChart extends Component {
     const axis = d3.axisRight(rScale)
                     .tickFormat(function(d) { return d + "%" })
                     .tickPadding(10)
-                    // .ticks(10)
+                    .ticks(10)
 
     const y_axis = d3.select(node)
                      .append("g")
@@ -75,9 +75,13 @@ class BarChart extends Component {
 
     d3.select(node)
       .call(d3.zoom()
+
+              // bind y axis to origin no pan
               .extent([[0, this.props.height], [this.props.width, this.props.height]])
               .scaleExtent([0, 1])
               .translateExtent([[0, this.props.height], [0, this.props.height]])
+              //  ------------------------
+
               .on("zoom", () => {
 
                  let newTScale = d3.event.transform.rescaleY(tScale);
@@ -185,7 +189,8 @@ class BarChart extends Component {
           .on('mouseover', function(data, i) {
             d3.select(this).style('fill', '#00f2b1')
             const id = d3.event.target.id
-            handleHover({name: legend[id], index: parseInt(id, 10)});
+            const change = ( ((data - 1) / 1) * 100 );
+            handleHover({name: legend[id], index: parseInt(id, 10), data: change});
 
         }).on('mouseout', function(data, i) {
           d3.select(this).style('fill', '#ff004c')

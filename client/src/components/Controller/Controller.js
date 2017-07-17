@@ -23,11 +23,12 @@ class Controller extends Component {
     this.state = {
       current: 'Agriculture, forestry, fishing, and hunting',
       currentNum: 0,
+      currentVal: 0,
       data: [],
       ones: [],
       legend: [],
       model: false,
-      width: 1200,
+      width: 1100,
       height: 800,
       barpad: 1,
       valued: false,
@@ -112,10 +113,21 @@ class Controller extends Component {
   balance(payload) {
     const data = JSON.parse(payload);
     const legend = data['legend']
-    // const zeros = Array.apply(null, Array(legend.length)).map(Number.prototype.valueOf,0);
     const ones = Array.apply(null, Array(legend.length)).map(Number.prototype.valueOf,1);
+
+    // let width, height;
+
+    // if (data['level'] === 'sector') {
+    //   width = 800;
+    //   height = 500;
+    // } else {
+    //   width = 1100;
+    //   height = 700;
+    // }
+
     this.setState({
-      // zeros: zeros,
+      // width: width,
+      // height: height,
       data: ones,
       legend: legend,
       level: data['level'],
@@ -124,7 +136,8 @@ class Controller extends Component {
   }
 
   handleHover(ev) {
-    this.setState({current: ev.name, currentNum: ev.index})
+    console.log(ev.data);
+    this.setState({current: ev.name, currentNum: ev.index, currentVal: ev.data})
   }
 
 
@@ -133,27 +146,18 @@ class Controller extends Component {
     const width = this.state.width;
     const height = this.state.height;
     const padding = this.state.barpad;
-
     const year = this.state.year;
-    // const model = this.state.model;
     const level = this.state.level;
     const valued = this.state.valued;
-
     const isModel = this.state.model;
-    const current = this.state.current;
-
-    // const zeros = this.state.zeros;
     const legend = this.state.legend;
 
-    ////////////////
-    // const data = this.state.data.map(d => d * 5)
+    const current = this.state.current + ' | ' + this.state.currentVal.toFixed(2);
     const data = this.state.data
-    ////////////////
 
     return(
       <div className="Controller">
         <Console display={current} />
-
 
         <div className="Graph">
           <BarChart

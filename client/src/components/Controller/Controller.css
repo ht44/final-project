@@ -1,41 +1,24 @@
 .Controller {
-  /*width: 100%;*/
-  /*height: 100%;*/
-  /*margin: auto;*/
   background-color: black;
   color: white;
   display: flex;
-  flex-flow: column wrap;
-  justify-content: space-around;
-  align-items: center;
-  /*border: 1px solid grey;*/
-  flex: auto;
-  height: 100%;
+  flex-flow: column;
+  justify-content: center;
+  height: 100vh;
 }
 
 .Graph {
   display: flex;
-  /*align-self: baseline;*/
-  /*border: 1px solid blue;*/
-  /*border-radius: 15px;*/
-  /*overflow: hidden;*/
 }
 
 
 .Sidebar {
   width: 250px;
-  /*height: 600px;*/
-  /*position: absolute;*/
-  /*left: 25px;*/
-  /*overflow-y: scroll;*/
-  /*overflow-x: hidden;*/
   border-top: 1px solid green;
   border-bottom: 1px solid green;
   border-right: 1px solid green;
   flex: 1;
-  /*border-right: 0px;*/
   display: flex;
   flex-flow: column wrap;
-  /*justify-content: space-around;*/
   align-self: flex-start;
 }

@@ -87,9 +87,6 @@ class Controller extends Component {
 
   showRelative(parsed) {
     const data = parsed
-    console.log('show relllllll');
-    // const legend = data['legend']
-    // const zeros = Array.apply(null, Array(legend.length)).map(Number.prototype.valueOf,0);
     this.setState({
       // zeros: zeros,
       data: parsed['rel_unit_price'],
@@ -98,10 +95,10 @@ class Controller extends Component {
       model: true
     });
   }
+
   restore() {
     const legend = this.state.legend;
     const ones = Array.apply(null, Array(legend.length)).map(Number.prototype.valueOf,1);
-
     this.setState({
       data: ones,
       year: this.state.year,
@@ -136,11 +133,8 @@ class Controller extends Component {
   }
 
   handleHover(ev) {
-    console.log(ev.data);
     this.setState({current: ev.name, currentNum: ev.index, currentVal: ev.data})
   }
-
-
 
   render() {
     const width = this.state.width;

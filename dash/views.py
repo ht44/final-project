@@ -8,6 +8,7 @@ import json
 Decimal = decimal.Decimal
 decimal.getcontext().prec = 1
 
+
 def index(request):
     econ = m.Leontief('sector', '2015', sql=True)
     econ.balance()

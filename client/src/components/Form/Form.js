@@ -19,15 +19,16 @@ class Form extends Component {
   }
 
 
-  componentDidMount() {
-    // let x = ReactDOM.findDOMNode(this.refs[this.props.current])
-    // x.focus();
-  }
+  // componentDidMount() {
+  //   // let x = ReactDOM.findDOMNode(this.refs[this.props.current])
+  //   // x.focus();
+  // }
 
   componentDidUpdate(prevProps, nextProps) {
     let x = ReactDOM.findDOMNode(this.refs[this.props.current])
     x.focus();
   }
+  
   componentWillReceiveProps(prevProps, nextProps) {
     // console.log(nextProps);
     // // console.log(ReactDOM.findDOMNode(this.refs[]));
@@ -78,7 +79,7 @@ class Form extends Component {
       this.props.restore();
       console.log(url);
     }
-    ev.preventDefault()
+    ev.preventDefault();
   }
 
   focus(ev) {

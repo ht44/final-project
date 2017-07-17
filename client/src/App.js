@@ -39,24 +39,15 @@ const YearNav = ({ match }) => {
         </NavLink>
       </li>
     );
-}
-console.log('MATCH.URL:', match.url);
+  }
   return (
     <div className="App-List">
       <ul>
-
         <li><Link to="/">Home</Link></li>
         <li><NavLink to="/summary" activeClassName="router-selected">Summary</NavLink></li>
         <li><NavLink to="/sector" activeClassName="router-selected">Sector</NavLink></li>
-        
         {panels}
-
       </ul>
-
-      {/* <Route path="/:level/:year" component={Year}/> */}
-
-
-
     </div>
   )
 }
@@ -72,18 +63,12 @@ const SiteRouter = ({ location }) => {
               <li><NavLink to="/" activeClassName="router-selected">Home</NavLink></li>
               <li><NavLink to="/summary" activeClassName="router-selected">Summary</NavLink></li>
               <li><NavLink to="/sector" activeClassName="router-selected">Sector</NavLink></li>
-
             </ul>
-
           </div>
-          // <Redirect to='/sector/2015'/>
         )}/>
-
         <Route path="/:level" component={YearNav}/>
         <img src={logo} className="App-logo" alt="logo" />
         <Route path="/:level/:year" component={Year}/>
-
-
       </div>
     </Router>
   )
@@ -92,10 +77,6 @@ const SiteRouter = ({ location }) => {
 
 
 class App extends Component {
-  componentDidMount() {
-    console.log('APPMOUNT -----------');
-
-  }
   render() {
     return (
       <div className="App">

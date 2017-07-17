@@ -9,7 +9,7 @@ class BarChart extends Component {
    super(props)
     this.createBarChart = this.createBarChart.bind(this)
     this.updateBarChart = this.updateBarChart.bind(this)
-    this.state = {upperLimit: 10};
+    this.state = {upperLimit: 10, height: this.props.height};
   }
 
   componentDidMount() {
@@ -31,7 +31,6 @@ class BarChart extends Component {
     const dataMin = d3.min(this.props.data);
     const dataMax = d3.max(this.props.data);
     const legend = this.props.legend;
-
 
     const yScale = d3.scaleLinear()
                      .domain([0, dMax])
@@ -68,45 +67,40 @@ class BarChart extends Component {
                    .attr('width', this.props.width / this.props.data.length - this.props.barPadding)
                    .attr('id', (d, i) => legend[i])
                    .attr('height', d => yScale(d))
-      // .attr('height', 0)
-      // .transition()
-      // .attr('height', d => yScale((((d - 1) / 1) * 100)))
-      // .duration(2000)
 
-     d3.select(node)
-     .style('border', '1px solid green')
-     .attr('cursor', 'cell')
+    d3.select(node)
+      .style('border', '1px solid green')
+      .attr('cursor', 'cell')
 
 
     d3.select(node)
-     .call(d3.zoom()
-            //  .extent([[this.props.width, this.props.height], [0, 0]])
-             .scaleExtent([0, 1])
-            //  .translateExtent([[this.props.width, this.props.height], [0, 0]])
-             .on("zoom", () => {
+      .call(d3.zoom()
+              .scaleExtent([0, 1])
+              .on("zoom", () => {
 
-               let newTScale = d3.event.transform.rescaleY(tScale);
-               let newYScale = d3.event.transform.rescaleY(yScale);
+                 let newTScale = d3.event.transform.rescaleY(tScale);
+                 let newYScale = d3.event.transform.rescaleY(yScale);
 
-               let newBaseline = newTScale(0);
-               console.log('NEWBASELINE', newBaseline);
-               let newTop = this.props.height - newTScale(0);
+                 let newBaseline = newTScale(0);
+                 console.log('NEWBASELINE', newBaseline);
+                 let newTop = this.props.height - newTScale(0);
 
-               y_axis.transition()
-                     .duration(50)
-                     .call(axis.scale(newTScale));
+                 y_axis.transition()
+                       .duration(50)
+                       .call(axis.scale(newTScale));
 
-              d3.select(node).selectAll('rect')
-                             .transition()
-                             .duration(50)
+                 d3.select(node).selectAll('rect')
+                                .transition()
+                                .duration(50)
 
-                             .attr( 'y', d => {
-                              return newTScale((((d - 1) / 1) * 100));
-                             })
+                                .attr( 'y', d => {
+                                  return newTScale((((d - 1) / 1) * 100));
+                                })
 
-                             .attr('height', d => {
-                              return newBaseline - newTScale((((d - 1) / 1) * 100));
-                             })
+                                .attr('height', d => {
+                                  return newBaseline - newTScale((((d - 1) / 1) * 100));
+                                })
+                this.setState({height: newBaseline});
              }));
   }
 
@@ -124,6 +118,9 @@ class BarChart extends Component {
     const yScale = d3.scaleLinear()
                      .domain([0, dMax])
                      .range([0, this.props.height])
+    const tScale = d3.scaleLinear()
+                     .domain([0, dMax])
+                     .range([this.props.height, 0])
 
 
     if (this.props.data.length !== prevProps.data.length || this.props.level !== prevProps.level) {
@@ -166,16 +163,20 @@ class BarChart extends Component {
     if (this.props.model || this.props.year !== prevProps.year) {
       this.props.changeModel()
       console.log('BBBBBBBB -------------');
+      const transform = d3.zoomTransform(node)
+      const newTScale = transform.rescaleY(tScale)
+      const newYScale = transform.rescaleY(yScale)
+      console.log(newTScale);
 
     d3.select(node)
       .selectAll('rect')
       .data(this.props.data)
       .transition()
       .attr('x', (d, i) => i * (this.props.width / this.props.data.length))
-      .attr('y', d => this.props.height - yScale((((d - 1) / 1) * 100)))
+      .attr('y', d => newTScale((((d - 1) / 1) * 100)))
       // .attr('y', d => this.props.height - yScale(d))
       .attr('width', this.props.width / this.props.data.length - this.props.barPadding)
-      .attr('height', d => yScale((((d - 1) / 1) * 100)))
+      .attr('height', d => this.state.height - newTScale((((d - 1) / 1) * 100)))
       .duration(2000)
       .on('end', function(data, i) {
         d3.select(this)
@@ -193,6 +194,7 @@ class BarChart extends Component {
   }
 
   render() {
+    console.log(this.state.height);
     return(
       <svg
         className="BarChart"

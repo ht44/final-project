@@ -30,7 +30,7 @@ STATICFILES_DIRS = [os.path.join(REACT_APP_DIR, 'build', 'static')]
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = ['http://lion.us-west-2.elasticbeanstalk.com/']
+ALLOWED_HOSTS = ['lion.us-west-2.elasticbeanstalk.com']
 
 # Application definition
 

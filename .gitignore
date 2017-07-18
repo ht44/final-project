@@ -3,29 +3,29 @@
 .cache/
 *.pyc
 temp/
-
-lion/iomsite/secrets.py
+dash/seed.py
+iomsite/secrets.py
 
 
 # dependencies
-lion/client/src/node_modules
+client/src/node_modules
 
 # testing
-lion/client/src/coverage
+client/src/coverage
 
 # production
-lion/client/src/build
+client/src/build
 
 # misc
-lion/client/src/.DS_Store
-lion/client/src/.env.local
-lion/client/src/.env.development.local
-lion/client/src/.env.test.local
-lion/client/src/.env.production.local
+client/src/.DS_Store
+client/src/.env.local
+client/src/.env.development.local
+client/src/.env.test.local
+client/src/.env.production.local
 
-lion/client/src/npm-debug.log*
-lion/client/src/yarn-debug.log*
-lion/client/src/yarn-error.log*
+client/src/npm-debug.log*
+client/src/yarn-debug.log*
+client/src/yarn-error.log*
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

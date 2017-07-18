@@ -28,9 +28,9 @@ STATICFILES_DIRS = [os.path.join(REACT_APP_DIR, 'build', 'static')]
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://lion.us-west-2.elasticbeanstalk.com/']
 
 # Application definition
 

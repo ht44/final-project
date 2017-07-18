@@ -1,41 +1,31 @@
-.DS_Store
-iomodel/.DS_Store
-iomodel/pickles/.DS_Store
-iomodel/test/.DS_Store
-
-
+*.DS_Store
+*__pycache__/
 .cache/
 *.pyc
-iomodel/__pycache__/
-iomodel/test/__pycache__/
 temp/
 
-iomsite/__pycache__/
-iomsite/secrets.py
+lion/iomsite/secrets.py
 
-dash/__pycache__/
-dash/migrations/__pycache__/
 
 # dependencies
-client/src/node_modules
+lion/client/src/node_modules
 
 # testing
-client/src/coverage
+lion/client/src/coverage
 
 # production
-client/src/build
+lion/client/src/build
 
 # misc
-client/__pycache__/
-client/src/.DS_Store
-client/src/.env.local
-client/src/.env.development.local
-client/src/.env.test.local
-client/src/.env.production.local
+lion/client/src/.DS_Store
+lion/client/src/.env.local
+lion/client/src/.env.development.local
+lion/client/src/.env.test.local
+lion/client/src/.env.production.local
 
-client/src/npm-debug.log*
-client/src/yarn-debug.log*
-client/src/yarn-error.log*
+lion/client/src/npm-debug.log*
+lion/client/src/yarn-debug.log*
+lion/client/src/yarn-error.log*
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

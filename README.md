@@ -7,7 +7,7 @@ input / output analysis of the United States accounts.
 
 The program is backed by a robust test suite that tests against the Bureau of Economic Analysis' own derivations.
 
-I made my decision to pursue this idea based off of several criteria.
+I made my decision to develop Lion based off of several criteria.
 
 Probably my favorite thing about software development is how often you get to the chance to conquer new plateaus, and this time around I wanted to push myself harder than ever before. I’m happy with my decision to pursue this project, because it required me to teach myself an almost entirely extracurricular software stack, plus enough macroeconomics and linear algebra to write a program that could do the heavy lifting for the user.
 

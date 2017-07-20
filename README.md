@@ -53,7 +53,3 @@ This interface supports arguments to the economic model by attaching user input 
 My application queries the necessary matrices and vectors for balancing the economy and applies the user-provided tax matrix. The total requirements equations are derived from the new data and used to solve for relative price.
 
 A JSON payload containing the result for each commodity is delivered back to the client, which delegates rendering of the data to D3.
-
-Using D3 to scale my data to pixel dimensions and implement data-driven manipulations and transitions was a large part of my project, so before I’m done I’ll show a quick video of this in action.
-
-Anyway that’s all I’ve got. Thank you for your time, and have a wonderful evening.

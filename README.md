@@ -42,7 +42,7 @@ Lion uses this method but anyone can use Lion. It's a tool that lets you examine
 
 The design of Lion can be described as a single-page (SPA) model-view-controller (MVC) architecture.
 
-You have relational database PostgreSQl maintaining a copy of the input / output accounts of the BEA for speed and integrity.
+You have relational database PostgreSQl maintaining a copy of the input / output accounts of the BEA for speed and availability.
 
 A Python Django web server runs an application that initializes a connection to the data and exposes a REST API for its retrieval.
 

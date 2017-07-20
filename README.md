@@ -9,9 +9,9 @@ The program is backed by a robust test suite that tests against the Bureau of Ec
 
 I came up with this idea in order to accomplish several goals I had going into the two-week project period.
 
-Probably my favorite thing about software development is how often you get to the chance to conquer new plateaus, and this time around I wanted to push myself harder than ever before. I’m happy with my decision to pursue Lion, because it required me to teach myself an almost entirely extracurricular software stack, plus enough macroeconomics and linear algebra to write a program that could do the heavy lifting for the user.
+One of my favorite things about software development is how often you get to the chance to conquer new plateaus, and this time around I wanted to push myself harder than ever before. I’m happy with my decision to pursue Lion, because it required me to teach myself an almost entirely extracurricular tech stack, an unfamiliar programming language, plus enough macroeconomics and linear algebra to write a program that could do the heavy lifting for the user.
 
-I also wanted to solve a real-world problem. I love writing software, but its only half the fun. Bringing those skills to bear on something worth while is truly rewarding.
+Also on my list of goals was solving a real-world problem. I love writing software, but its only half the fun. Bringing those skills to bear on something worth while is truly rewarding.
 
 Breaking into test-driven development was probably my biggest goal, and likewise it's my biggest point of pride. I adhered to the principles of TDD throughout development, even when I was scared I wouldn't finish my project. The lessons I took from this are invaluable, and I'm happy to say I'll be testing before I write my code whenever I can from now on.
 

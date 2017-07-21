@@ -2,13 +2,12 @@
 import numpy as np
 from copy import deepcopy
 from types import MethodType
-from iomodel import data
+from iomodel.data import Dataset
 import pandas as pd
-Dataset = data.Dataset
 
 class Leontief(Dataset):
-    def __init__(self, level, year, sql=True):
-        super(Leontief, self).__init__(level, year, sql=sql)
+    def __init__(self, u, m, i, c, v, d, n):
+        super(Leontief, self).__init__(u, m, i, c, v, d, n)
         # ^ use_matrix, make_matrix,
         # commodity_vector, industry_vector
         # value_vector, demand_vector, noncomp_vector

@@ -5,7 +5,7 @@
 temp/
 dash/seed.py
 iomsite/secrets.py
-
+iomodel/test/bea_derivations
 
 # dependencies
 client/src/node_modules

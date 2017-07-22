@@ -4,17 +4,6 @@ import logo from './logo.svg';
 import React, { Component } from 'react';
 import Controller from './components/Controller/Controller';
 import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
-// import { Redirect } from 'react-router-dom';
-
-// function aSyncXhr(level, year) {
-//   return new Promise((resolve, reject) => {
-//     const xhr = new XMLHttpRequest();
-//     xhr.open('GET', `http://localhost:8000/dash/${level}/${year}/`)
-//     xhr.onload = () => resolve(xhr.response)
-//     xhr.onerror = () => resolve(xhr.statusText)
-//     xhr.send();
-//   })
-// }
 
 const Year = ({ match }) => {
   if (match.params.year) {

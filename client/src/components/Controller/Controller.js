@@ -43,7 +43,7 @@ class Controller extends Component {
   aSyncXhr(level, year) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open('GET', `http://localhost:8000/dash/${level}/${year}/`)
+      xhr.open('GET', `/dash/${level}/${year}/`)
       xhr.onload = () => resolve(xhr.response)
       xhr.onerror = () => resolve(xhr.statusText)
       xhr.send();

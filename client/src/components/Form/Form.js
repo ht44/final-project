@@ -28,7 +28,7 @@ class Form extends Component {
     let x = ReactDOM.findDOMNode(this.refs[this.props.current])
     x.focus();
   }
-  
+
   componentWillReceiveProps(prevProps, nextProps) {
     // console.log(nextProps);
     // // console.log(ReactDOM.findDOMNode(this.refs[]));
@@ -52,7 +52,7 @@ class Form extends Component {
 
   handleSubmit(ev) {
     const xhr = new XMLHttpRequest()
-    let url = `http://localhost:8000/dash/${this.props.level}/${this.props.year}/?`;
+    let url = `/dash/${this.props.level}/${this.props.year}/?`;
     this.state.values.forEach((value, index) => {
       if (value !== 0) {
         url = url + index + '=' + value + '&';

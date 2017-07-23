@@ -6,5 +6,19 @@ temp/
 dash/seed.py
 iomodel/test/bea_derivations
 
-# production
-client/
+# dependencies
+client/src/node_modules
+
+# testing
+client/src/coverage
+
+# misc
+client/src/.DS_Store
+client/src/.env.local
+client/src/.env.development.local
+client/src/.env.test.local
+client/src/.env.production.local
+
+client/src/npm-debug.log*
+client/src/yarn-debug.log*
+client/src/yarn-error.log*

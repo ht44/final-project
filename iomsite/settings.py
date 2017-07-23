@@ -11,13 +11,13 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-# from . import secrets
+from . import secrets
 #
 # DB_USER = secrets.DB_USER
 # DB_PASSWORD = secrets.DB_PASSWORD
 # DB_HOST = secrets.DB_HOST
 # DB_PORT = secrets.DB_PORT
-# SECRET_KEY = secrets.SECRET_KEY
+SECRET_KEY = secrets.SECRET_KEY
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

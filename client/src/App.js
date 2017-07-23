@@ -45,7 +45,7 @@ const SiteRouter = ({ location }) => {
   console.log(location);
   return (
     <Router>
-      <div className="App-List">
+      <div className="SiteRouter">
         <Route exact path="/" render={() => (
           <div className="App-List">
             <ul>
@@ -56,7 +56,7 @@ const SiteRouter = ({ location }) => {
           </div>
         )}/>
         <Route path="/:level" component={YearNav}/>
-        <img src={logo} className="App-logo" alt="logo" />
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <Route path="/:level/:year" component={Year}/>
       </div>
     </Router>
@@ -69,7 +69,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SiteRouter className="App" />
+        <SiteRouter className="SiteRouter"/>
       </div>
     );
   }

@@ -28,8 +28,8 @@ class Controller extends Component {
       ones: [],
       legend: [],
       model: false,
-      width: 1100,
-      height: 800,
+      width: 700,
+      height: 700,
       barpad: 1,
       valued: false,
     };
@@ -51,7 +51,6 @@ class Controller extends Component {
   }
 
   componentDidMount() {
-    console.log('CONTROLLERMOUNT--------');
     this.aSyncXhr(this.props.level, this.props.year).then((resp) => {
       this.balance(resp)
     })

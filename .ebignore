@@ -4,7 +4,6 @@
 *.pyc
 temp/
 dash/seed.py
-iomsite/secrets.py
 iomodel/test/bea_derivations
 
 # production

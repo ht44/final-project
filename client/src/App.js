@@ -33,8 +33,8 @@ const YearNav = ({ match }) => {
     <div className="App-List">
       <ul>
         <li><Link to="/">Home</Link></li>
-        <li><NavLink to="/summary" activeClassName="router-selected">Summary</NavLink></li>
         <li><NavLink to="/sector" activeClassName="router-selected">Sector</NavLink></li>
+        <li><NavLink to="/summary" activeClassName="router-selected">Summary</NavLink></li>
         {panels}
       </ul>
     </div>
@@ -50,8 +50,8 @@ const SiteRouter = ({ location }) => {
           <div className="App-List">
             <ul>
               <li><NavLink to="/" activeClassName="router-selected">Home</NavLink></li>
-              <li><NavLink to="/summary" activeClassName="router-selected">Summary</NavLink></li>
               <li><NavLink to="/sector" activeClassName="router-selected">Sector</NavLink></li>
+              <li><NavLink to="/summary" activeClassName="router-selected">Summary</NavLink></li>
             </ul>
           </div>
         )}/>

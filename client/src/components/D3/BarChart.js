@@ -117,7 +117,6 @@ class BarChart extends Component {
 
 
     if (this.props.data.length !== prevProps.data.length || this.props.level !== prevProps.level) {
-      console.log('A ------------------');
       this.props.changeModel()
 
       d3.select(node)
@@ -156,10 +155,8 @@ class BarChart extends Component {
 
     if (this.props.model || this.props.year !== prevProps.year) {
       this.props.changeModel()
-      console.log('BBBBBBBB -------------');
       const transform = d3.zoomTransform(node)
       const newInvScale = transform.rescaleY(yInvScale)
-      // const newYScale = transform.rescaleY(yScale)
 
     d3.select(node)
       .selectAll('rect')

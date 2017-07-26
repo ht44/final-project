@@ -1,4 +1,4 @@
-This is the script to my oral presentation of this project, which will take the place of a proper README until I find the time to write one. The application will be deployed as soon as possible.
+This is the script to my oral presentation of this project, which will take the place of a proper README until I find the time to write one.
 
 ------------
 
